@@ -1,0 +1,51 @@
+{
+  "pages": [
+    {
+      "path": "pages/work-space/index",
+      "style": {
+        "navigationBarTitleText": "工作台"
+      }
+    },
+    {
+      "path": "pages/task-list/index",
+      "style": {
+        "navigationBarTitleText": "任务工单"
+      }
+    },
+    {
+      "path": "pages/report/index",
+      "style": {
+        "navigationBarTitleText": "报修"
+      }
+    }
+  ],
+  "tabBar": {
+    "color": "#919191",
+    "selectedColor": "#FF6699",
+    "backgroundColor": "#fff",
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "pages/work-space/index",
+        "text": "工作台",
+        "iconPath": "/static/c1.png",
+        "selectedIconPath": "/static/c2.png"
+      },
+      {
+        "pagePath": "pages/task-list/index",
+        "text": "任务工单",
+        "iconPath": "/static/c3.png",
+        "selectedIconPath": "/static/c4.png"
+      }
+    ]
+  },
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "宁夏科技馆",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8",
+    "app-plus": {
+      "background": "#efeff4"
+    }
+  }
+}
