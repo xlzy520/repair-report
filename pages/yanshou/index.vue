@@ -1,21 +1,28 @@
 <template>
-	<view class="container">
+  <view class="container">
+    <view class="list-title">维修工单</view>
+    <view class="baoxiu">
+      <uni-list>
+        <uni-list-item title="工单号" right-text="dsakjdhaskjdhsakdkasgdaskdbas"></uni-list-item>
+        <uni-list-item title="照片">
+          <template slot="footer">
+            <image class="baoxiu-img" src="https://img-cdn-qiniu.dcloud.net.cn/new-page/uni.png"></image>
+          </template>
+        </uni-list-item>
+
+        <uni-list-item title="备注">
+          <template slot="footer">
+            <view class="uni-textarea">
+              <input @input="changeInput" placeholder="备注" auto-height />
+            </view>
+          </template>
+        </uni-list-item>
+      </uni-list>
+
+    </view>
+    <view class="list-title">验收</view>
     <view class="form-main">
       <uni-list>
-        <uni-list-item title="识别方式">
-          <template slot="footer" class="ss">
-            <picker :value="currentMethod" :range="methods" @change="changeMethod">
-              <view class="uni-input">{{methods[currentMethod]}}</view>
-            </picker>
-          </template>
-        </uni-list-item>
-        <uni-list-item title="选择展品">
-          <template slot="footer">
-            <picker :value="currentShowItem" :range="showItems" @change="changeShowItem">
-              <view class="uni-input">{{showItems[currentShowItem]}}</view>
-            </picker>
-          </template>
-        </uni-list-item>
         <uni-list-item title="上传照片">
           <template slot="footer">
             <easy-upload
@@ -53,22 +60,22 @@
           </template>
         </uni-list-item>
       </uni-list>
-      <view class="footer">
-        <button @click="submit" class="primary-btn">上报</button>
-      </view>
     </view>
-
-	</view>
+    <view class="footer">
+      <button @click="submit" class="primary-btn">通过</button>
+      <button @click="submit" class="warning-btn">驳回</button>
+    </view>
+  </view>
 </template>
 
 <script>
   import EasyUpload from 'components/a-my/easy-upload'
-	export default {
+  export default {
     components: {
       EasyUpload,
     },
-		data() {
-			return {
+    data() {
+      return {
         methods: ['位置识别', '区域识别', '图片识别', '扫描二维码'],
         showItems: ['展品1', '展品2',],
         currentMethod: 1,
@@ -78,9 +85,9 @@
         audioList: [],
         category: 'image',
         mark: ''
-			}
-		},
-		methods: {
+      }
+    },
+    methods: {
       successImage (){
 
       },
@@ -103,18 +110,48 @@
       submit(){
 
       }
-		}
-	}
+    }
+  }
 </script>
 
 <style lang="scss">
+  page{
+    background: #eee;
+  }
   .container{
     width: 90%;
     margin: auto;
+    .list-title{
+      color: #ccc;
+      padding: 30upx;
+      font-size: 12px;
+    }
+    .baoxiu{
+      background: #fff;
+      /*margin: 30upx;*/
+    }
+    .form-main{
+      margin-bottom: 160upx;
+    }
     .footer{
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #fff;
       border-top: 1px solid #eee;
-      margin-top: 40upx;
-      margin-bottom: 40upx;
+      display: flex;
+      justify-content: space-between;
+      padding: 20upx 0;
+      z-index: 3000;
+      button{
+        width: 45%;
+        border-radius: 0;
+      }
+    }
+    .baoxiu-img{
+      width: 300upx;
+      height: 200upx;
     }
   }
 </style>

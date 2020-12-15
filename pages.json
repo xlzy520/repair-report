@@ -7,15 +7,68 @@
       }
     },
     {
-      "path": "pages/task-list/index",
+      "path": "pages/yanshou/index",
       "style": {
-        "navigationBarTitleText": "任务工单"
+        "navigationBarTitleText": "一键验收"
+      }
+    },
+    {
+      "path": "pages/weixiu/index",
+      "style": {
+        "navigationBarTitleText": "一键维修"
+      }
+    },
+
+    {
+      "path": "pages/baoxiu/index",
+      "style": {
+        "navigationBarTitleText": "一键报修"
+      }
+    },
+    {
+      "path": "pages/yanshou-desk/index",
+      "style": {
+        "navigationBarTitleText": "验收工单"
+      }
+    },
+    {
+      "path": "pages/weixiu-desk/index",
+      "style": {
+        "navigationBarTitleText": "维修工单"
       }
     },
     {
       "path": "pages/report/index",
       "style": {
-        "navigationBarTitleText": "报修"
+        "navigationBarTitleText": "日报"
+      }
+    },
+
+    {
+      "path": "pages/report-fill/index",
+      "style": {
+        "navigationBarTitleText": "填写日报"
+      }
+    },
+    {
+      "path": "pages/task-desk/index",
+      "style": {
+        "navigationBarTitleText": "任务工单"
+      }
+    },
+
+    {
+      "path": "pages/baoxiu-desk/index",
+      "style": {
+        "navigationBarTitleText": "报修工单"
+      }
+    },
+
+
+    {
+      "path": "pages/loss-rate/index",
+      "style": {
+        "navigationBarTitleText": "损坏率"
       }
     }
   ],
@@ -32,7 +85,7 @@
         "selectedIconPath": "/static/c2.png"
       },
       {
-        "pagePath": "pages/task-list/index",
+        "pagePath": "pages/task-desk/index",
         "text": "任务工单",
         "iconPath": "/static/c3.png",
         "selectedIconPath": "/static/c4.png"

@@ -26,9 +26,9 @@
 			return {
 				href: 'https://uniapp.dcloud.io/component/README?id=uniui',
         list: [
-          { img: '/static/c1.png', title: '报修', subtitle: '一键报修', url: 'bx' },
-          { img: '/static/c1.png', title: '维修', subtitle: '一键维修', url: 'wx' },
-          { img: '/static/c1.png', title: '验收', subtitle: '一键验收', url: 'ys' },
+          { img: '/static/c1.png', title: '报修', subtitle: '一键报修', url: 'baoxiu' },
+          { img: '/static/c1.png', title: '维修', subtitle: '一键维修', url: 'weixiu' },
+          { img: '/static/c1.png', title: '验收', subtitle: '一键验收', url: 'yanshou' },
           { img: '/static/c1.png', title: '扫一扫', subtitle: '工作、验票', url: 'scan' },
           { img: '/static/c1.png', title: '日报', subtitle: '填写日报', url: 'report' },
         ]
@@ -36,6 +36,15 @@
 		},
 		methods: {
       entryClick(item){
+        if (item.url === 'scan') {
+          uni.scanCode({
+            success: function (res) {
+              console.log('条码类型：' + res.scanType);
+              console.log('条码内容：' + res.result);
+            }
+          });
+          return
+        }
         wx.navigateTo({
           url: `/pages/${item.url}/index`
         })
