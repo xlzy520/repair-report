@@ -22,10 +22,11 @@
   align-items: center;
 }
 .confirm-btn {
+  width: 480upx;
   font-family: $ftf;
-  font-size: 32upx;
-  height: 88rpx;
-  line-height: 88rpx;
+  font-size: 32upx!important;
+  height: 88rpx!important;
+  line-height: 88rpx!important;
   .u-size-default, &.u-size-default{
     color: #fff!important;
     border-radius: 88rpx;
@@ -83,4 +84,14 @@
   width: 100upx;
   height: 100upx;
   border-radius: 50%;
+}
+
+.form-item-desc{
+  .u-form-item--right__content__icon{
+    position: relative;
+    top: -126upx;
+    font-size: 24upx!important;
+    color: #999!important;
+    line-height: 33upx;
+  }
 }

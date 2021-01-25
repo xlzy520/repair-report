@@ -8,8 +8,10 @@
         <view class="layout-qz title-row">
           <view class="base-title-36 desk-title">{{item.exhibitionName}}</view>
           <view class="desk-status">
-            <u-tag v-if="item.status" text="已完成" color="#fff" bg-color="#44D7B6" />
-            <u-tag v-else text="未开始" color="#0590DF" bg-color="#DCF2FF" />
+            <u-tag v-if="item.status === '2'" text="已完成" color="#fff" bg-color="#44D7B6" />
+            <u-tag v-else-if="item.status === '0'" text="待维修" color="#0590DF" bg-color="#DCF2FF" />
+            <u-tag v-else-if="item.status === '1'" text="待验收" color="#6D99F9" bg-color="#DCE7FF" />
+            <u-tag v-else text="驳回" color="#FB7272" bg-color="#FFDCDC" />
           </view>
         </view>
         <view class="layout-qz base-subtitle f30 address-row">
@@ -100,6 +102,7 @@
         line-height: 40upx;
         height: 50upx;
         border-radius: 5upx;
+        border: none;
       }
     }
   }

@@ -13,7 +13,7 @@
     <view class="layout-column u-flex-1 nav-list">
       <uni-list>
         <uni-list-item :title="item.title" :rightText="count[index]" link :to="item.to"
-                       :thumb="item.icon" thumb-size="lg" class="list-item"
+                       :thumb="item.icon" class="list-item"
                        v-for="(item, index) in list" :key="item.title"/>
       </uni-list>
     </view>
@@ -21,36 +21,37 @@
 </template>
 
 <script>
-  import commonApi from "api/common";
-  import {TaskDeskStatisticsEnum} from "../../utils/enum";
+import commonApi from 'api/common'
+import { TaskDeskStatisticsEnum } from '../../utils/enum'
+
 export default {
   data() {
     return {
       list: [
         {
           title: '报修工单',
-          to: '/pages/baoxiu-desk/index?deskType=0',
-          icon: '/static/icon/icon-sign.png',
+          to: '/pages/desk/index?deskType=0',
+          icon: '/static/icon/desk/baoxiu.png',
         },
         {
           title: '维修工单',
-          to: '/pages/baoxiu-desk/index?deskType=1',
-          icon: '/static/icon/icon-sign.png',
+          to: '/pages/desk/index?deskType=1',
+          icon: '/static/icon/desk/weixiu.png',
         },
         {
           title: '验收工单',
-          to: '/pages/baoxiu-desk/index?deskType=2',
-          icon: '/static/icon/icon-sign.png',
+          to: '/pages/desk/index?deskType=2',
+          icon: '/static/icon/desk/yanshou.png',
         },
         {
           title: '日报',
           to: '/pages/report/index',
-          icon: '/static/icon/icon-sign.png',
+          icon: '/static/icon/desk/ribao.png',
         },
         {
-          title: '损坏率',
+          title: '展项统计',
           to: '/pages/loss-rate/index',
-          icon: '/static/icon/icon-sign.png',
+          icon: '/static/icon/desk/zhanxiang.png',
         }
       ],
       count: [1, 2, 3, 4, 5].map(String),
@@ -63,8 +64,8 @@ export default {
     getDetail() {
       uni.showLoading({ title: '数据加载中...' })
       commonApi.statistics().then(res => {
-        let newCountArr = []
-        TaskDeskStatisticsEnum.forEach((v, index)=>{
+        const newCountArr = []
+        TaskDeskStatisticsEnum.forEach((v, index) => {
           newCountArr[index] = String(res[v])
           this.count = newCountArr
         })

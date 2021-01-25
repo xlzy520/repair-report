@@ -1,120 +1,214 @@
 <template>
 	<view class="container">
     <view class="form-main">
-      <uni-list>
-        <uni-list-item title="识别方式">
-          <template slot="footer" class="ss">
-            <picker :value="currentMethod" :range="methods" @change="changeMethod">
-              <view class="uni-input">{{methods[currentMethod]}}</view>
-            </picker>
-          </template>
-        </uni-list-item>
-        <uni-list-item title="选择展品">
-          <template slot="footer">
-            <picker :value="currentShowItem" :range="showItems" @change="changeShowItem">
-              <view class="uni-input">{{showItems[currentShowItem]}}</view>
-            </picker>
-          </template>
-        </uni-list-item>
-        <uni-list-item title="上传照片">
-          <template slot="footer">
-            <easy-upload
-                :dataList="imageList" uploadUrl="http://localhost:8081/file_upload" types="image"
-                deleteUrl='http://localhost:3000/upload' :uploadCount="6"
-                @successImage="successImage"
-            ></easy-upload>
-          </template>
-        </uni-list-item>
-        <uni-list-item title="上传视频">
-          <template slot="footer">
-            <easy-upload
-                :dataList="videoList" uploadUrl="http://localhost:3000/upload" types="video"
-                deleteUrl='http://localhost:3000/upload' :uploadCount="6"
-                @successVideo="successVideo"
-            ></easy-upload>
-          </template>
-        </uni-list-item>
-        <uni-list-item title="上传音频">
-          <template slot="footer">
-            <easy-upload
-                :dataList="audioList" uploadUrl="http://localhost:3000/upload" types="audio"
-                deleteUrl='http://localhost:3000/upload' :uploadCount="6"
-                @successAudio="successAudio"
-            ></easy-upload>
-          </template>
-        </uni-list-item>
-
-
-        <uni-list-item title="备注">
-          <template slot="footer">
-            <view class="uni-textarea">
-              <input @input="changeInput" placeholder="备注" auto-height />
+      <u-form :model="form" ref="uForm" label-position="top" class="lzy-form">
+        <u-form-item label="选择识别方式" required prop="method">
+          <view class="layout-slide recognition-methods">
+            <view class="layout-cc recognition-item" v-for="item in methods" :key="item.title"
+                  @click="checkMethod(item)">
+              <u-image :src="getMethodImg(item)" width="101" height="100" />
+              <view class="f28 c9 lh-40 u-m-t-20">{{item.label}}</view>
             </view>
-          </template>
-        </uni-list-item>
-      </uni-list>
+          </view>
+<!--          <u-input placeholder="请输入您的手机号" v-model="form.phone" type="number"></u-input>-->
+        </u-form-item>
+        <u-form-item label="选择展项" required prop="exhibitionId">
+          <u-select v-model="exhibitionShow" :list="exhibitionOptions"
+                    @confirm="changeExhibition" />
+          <u-cell-group class="cell-group-placeholder">
+            <u-cell-item class="cell-placeholder" :title="cellTitles.exhibition" arrow
+                         :class="form.exhibitionId?'cell-has-value':''"
+                         @click="exhibitionShow = true"/>
+          </u-cell-group>
+        </u-form-item>
+        <u-form-item label="上传照片" required prop="imgList" class="form-item-desc">
+          <template slot="right">最多上传3张图片</template>
+          <u-upload :action="action" :header="header" :file-list="form.imgList" :custom-btn="true"
+                    max-count="3">
+            <view class="layout-cc upload-btn-img" slot="addBtn">
+              <u-image src="/static/icon/camera.png" width="65" height="54" ></u-image>
+            </view>
+          </u-upload>
+        </u-form-item>
+        <u-form-item label="上传视频" required prop="videoList" class="form-item-desc">
+          <template slot="right">最多上传3个视频</template>
+          <u-upload :action="action" :header="header" upload-type="video" :file-list="form.videoList"
+                    :custom-btn="true" max-count="3">
+            <view class="layout-cc upload-btn-img" slot="addBtn">
+              <u-image src="/static/icon/video.png" width="72" height="72" ></u-image>
+            </view>
+          </u-upload>
+        </u-form-item>
+        <u-form-item label="上传音频" prop="audioList" class="form-item-desc row-no-reverse">
+          <template slot="right">最多上传3段音频</template>
+          <u-upload :action="action" upload-type="media" :custom-btn="true"
+                    max-count="3">
+            <view class="layout-cc upload-btn-img" slot="addBtn">
+              <u-image src="/static/icon/audio.png" width="57" height="46" ></u-image>
+            </view>
+          </u-upload>
+        </u-form-item>
+
+        <u-form-item label="备注" prop="description" :border-bottom="false" class="row-no-reverse">
+          <u-input type="textarea" border height="200" v-model="form.description" placeholder="请输入您的备注信息……" />
+        </u-form-item>
+
+      </u-form>
+
       <view class="footer">
-        <button @click="submit" class="primary-btn">上报</button>
+        <u-button class="confirm-btn" :disabled="btnLoading" :loading="btnLoading" @click="submit">
+          提交报修
+        </u-button>
       </view>
+
     </view>
 
 	</view>
 </template>
 
 <script>
-  import EasyUpload from 'components/easy-upload/easy-upload'
-	export default {
-    components: {
-      EasyUpload,
-    },
-		data() {
-			return {
-        methods: ['位置识别', '区域识别', '图片识别', '扫描二维码'],
-        showItems: ['展品1', '展品2',],
-        currentMethod: 1,
-        currentShowItem: 1,
-        imageList: [],
-        videoList: [],
+import commonApi from '../../api/common'
+import reapirApi from "../../api/reapir";
+
+export default {
+  components: {
+  },
+  data() {
+    return {
+      action: '/api/common/file/upload',
+      form: {
+        exhibitionId: '',
+        imgList: ['/casic/homephoto1611586560131.png?Expires=1926946556&OSSAccessKeyId=LTAIcJhIvHfvkTao&Signature=k1iIL1zp6fQKf0GW9E32iXiAMTo%3D'],
+        videoList: ['/casic/homephoto1611588037969.mov?Expires=1926948030&OSSAccessKeyId=LTAIcJhIvHfvkTao&Signature=JjhoNf3zoLuYYa63ZMwQAtmNN8k%3D'],
         audioList: [],
-        category: 'image',
-        mark: ''
-			}
-		},
-		methods: {
-      successImage (){
-
+        description: '',
       },
-      successVideo (){
-
+      fileList: [],
+      exhibitionShow: false,
+      exhibitionOptions: [
+        { label: '一年', value: '1' },
+        { label: '两年', value: '2' },
+        { label: '三年', value: '3' },
+        { label: '四年', value: '4' }
+      ],
+      cellTitles: {
+        exhibition: '请选择报修展项',
       },
-      successAudio (){
-
+      btnLoading: false,
+      rules: {
+        exhibitionId: [
+          this.$rules.required('请选择展项')
+        ],
+        imgList: [
+          {
+            validator: (rule, value, callback) => {
+              if (this.form.imgList.length) {
+                callback()
+              }
+              callback('请上传至少一张图片')
+            },
+            trigger: ['blur', 'change'],
+          }
+        ],
+        videoList: [
+          {
+            validator: (rule, value, callback) => {
+              if (this.form.videoList.length) {
+                callback()
+              }
+              callback('请上传至少一个视频')
+            },
+            trigger: ['blur', 'change'],
+          }
+        ],
       },
-      changeInput(e) {
-        this.mark = e.detail.value
-      },
-      changeShowItem(e){
-        console.log(e);
-        this.currentShowItem = e.target.value
-      },
-      changeMethod(e){
-        this.currentMethod = e.target.value
-      },
-      submit(){
-
+      baseMethodsIconPath: '/static/icon/methods/',
+      methods: [
+        { label: 'GPS定位', url: 'gps' },
+        { label: '区域识别', url: 'quyu' },
+        { label: '二维码识别', url: 'qrcode' },
+        { label: '照片识别', url: 'photo' }
+      ],
+      checkedMethod: 'GPS定位',
+      showItems: ['展品1', '展品2'],
+      header: {
+        token: uni.getStorageSync('accessToken')
       }
-		}
-	}
+    }
+  },
+  onReady() {
+    this.$refs.uForm.setRules(this.rules)
+  },
+  methods: {
+    getMethodImg(item) {
+      const baseUrl = item.url
+      const url = item.label === this.checkedMethod ? baseUrl : baseUrl + '_grey'
+      return this.baseMethodsIconPath + url + '.png'
+    },
+    checkMethod(item) {
+      this.checkedMethod = item.label
+      this.getExhibition()
+    },
+    changeExhibition(data) {
+      this.form.exhibitionId = data[0].label
+      this.cellTitles.exhibition = data[0].label
+    },
+
+    openCalendar() {
+      this.calendarShow = true
+    },
+    successImage() {
+
+    },
+    successVideo() {
+
+    },
+    successAudio() {
+
+    },
+    getExhibition(){
+      commonApi.near({}).then(res => {
+        console.log(res);
+      })
+    },
+    submit() {
+      this.$refs.uForm.validate(valid => {
+        if (valid) {
+          this.btnLoading = true
+          reapirApi.add(this.form).then(res => {
+            console.log(res)
+            // uni.showToast({ title: '提交'})
+          }).finally(() => {
+            this.btnLoading = false
+          })
+          console.log(this.form)
+        }
+      })
+    },
+  },
+}
 </script>
 
 <style lang="scss">
   .container{
-    width: 90%;
+    padding-left: 40upx;
+    padding-right: 30upx;
     margin: auto;
+    .recognition-methods{
+      width: 660upx;
+    }
     .footer{
-      border-top: 1px solid #eee;
-      margin-top: 40upx;
-      margin-bottom: 40upx;
+      padding-top: 40upx;
+      padding-bottom: 40upx;
+    }
+    .upload-btn-img{
+      width: 151upx;
+      height: 151upx;
+      border: 2upx dashed #979797;
+    }
+    ::v-deep .u-preview-wrap{
+      width: 151upx!important;
+      height: 151upx!important;
     }
   }
 </style>

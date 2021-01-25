@@ -62,10 +62,6 @@
                 "/api" : {
                     "target" : "http://124.204.48.137:9001/",
                     "changeOrigin" : true
-                },
-                "/common" : {
-                    "target" : "http://124.204.48.137:9001/",
-                    "changeOrigin" : true
                 }
             }
         },

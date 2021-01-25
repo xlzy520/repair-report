@@ -1,7 +1,7 @@
 export const WeiXiuStatusEnum = [
   { label: '待维修', value: '0' },
   { label: '待验收', value: '1' },
-  { label: '验收完成', value: '2' },
+  { label: '已完成', value: '2' },
   { label: '驳回', value: '-1' }
 ]
 

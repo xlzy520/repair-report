@@ -1,4 +1,7 @@
 {
+  "easycom": {
+    "^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+  },
   "pages": [
     {
       "path": "pages/login/index",
@@ -32,18 +35,6 @@
       }
     },
     {
-      "path": "pages/yanshou-desk/index",
-      "style": {
-        "navigationBarTitleText": "验收工单"
-      }
-    },
-    {
-      "path": "pages/weixiu-desk/index",
-      "style": {
-        "navigationBarTitleText": "维修工单"
-      }
-    },
-    {
       "path": "pages/report/index",
       "style": {
         "navigationBarTitleText": "日报"
@@ -64,7 +55,7 @@
     },
 
     {
-      "path": "pages/baoxiu-desk/index",
+      "path": "pages/desk/index",
       "style": {
         "navigationBarTitleText": "报修工单"
       }

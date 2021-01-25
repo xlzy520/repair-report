@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import homeApi from '../../api/home'
+import reapirApi from '../../api/reapir'
 import { DeskTypeEnum } from '../../utils/enum'
 
 export default {
@@ -24,7 +24,7 @@ export default {
     },
     getList() {
       uni.showLoading({ title: '数据加载中...' })
-      const requestMapping = [homeApi.getBaoXiuList, homeApi.getWeiXiuList, homeApi.getYanShouList]
+      const requestMapping = [reapirApi.getBaoXiuList, reapirApi.getWeiXiuList, reapirApi.getYanShouList]
       requestMapping[this.deskType]().then(res => {
         this.deskList = res
         console.log(res)
