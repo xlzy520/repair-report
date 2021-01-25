@@ -1,0 +1,316 @@
+@import "uview-ui/libs/css/common";
+
+/* 禁止选中文本 */
+
+.usn {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+
+/* 强制不换行 */
+
+.wn {
+  word-wrap: normal;
+  white-space: nowrap;
+}
+
+
+/* 强制换行 */
+
+.wb {
+  white-space: normal;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+
+/*多行文字溢出 适用于webkit内核和移动端 */
+
+.wes {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+
+/*垂直居中*/
+
+.layout-qz {
+  display: flex;
+  align-items: center;
+}
+
+.layout-column {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.layout-base-line {
+  display: flex;
+  align-items: baseline;
+}
+
+.layout-bs {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+
+
+/*左右居中*/
+
+.layout-zy {
+  display: flex;
+  justify-content: center;
+}
+
+
+/*两边排列*/
+
+.layout-slide {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/*左中右排列*/
+
+.layout-around {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/*两边排列, 换行*/
+
+.layout-slide-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+
+/*上下排列*/
+
+.layout-sx {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+/*横向左右垂直居中*/
+
+.layout-rc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/*横向左右垂直居右*/
+
+.layout-rr {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.layout-sc {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+
+/*纵向左右垂直居中*/
+
+.layout-cc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/*清除浮动*/
+
+.clearfix::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+
+/*溢出部分省略号显示*/
+
+.ellipsis {
+  width: 300px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.text-hide {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.wh100 {
+  width: 100%;
+  height: 100%;
+}
+
+.w50{
+  width: 50%;
+}
+.w80{
+  width: 80%;
+}
+.w90{
+  width: 90%;
+}
+
+.w100 {
+  width: 100%;
+}
+
+.lh-33{
+  line-height: 33upx;
+}
+
+.lh-45{
+  line-height: 45upx;
+}
+
+.lh-50{
+  line-height: 50upx;
+}
+
+.lh-56{
+  line-height: 56upx;
+}
+
+.abs-full {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.mc {
+  color: #FF305D
+}
+
+.mr {
+  color: #ff0066;
+}
+
+.dc {
+  color: #98999B
+}
+
+h2 {
+  font-size: 32rpx
+}
+
+.f20 {
+  font-size: 20rpx
+}
+
+.f22 {
+  font-size: 22rpx
+}
+
+.f24 {
+  font-size: 24rpx
+}
+
+.f25 {
+  font-size: 25rpx
+}
+
+.f26 {
+  font-size: 26rpx
+}
+
+.f28 {
+  font-size: 28rpx
+}
+
+.f30 {
+  font-size: 30rpx
+}
+
+.f32 {
+  font-size: 32rpx
+}
+
+.f34 {
+  font-size: 34rpx
+}
+
+.f36 {
+  font-size: 36rpx
+}
+
+.f40 {
+  font-size: 40rpx;
+}
+
+.fb {
+  font-weight: bolder;
+}
+
+.cc{
+  color: #ccc;
+}
+
+.c3 {
+  color: #333;
+}
+
+.c6 {
+  color: #666;
+}
+
+.c9 {
+  color: #999;
+}
+.c-primary{
+  color: #39D5E3;
+}
+.c-red{
+  color: #E02020!important;
+}
+.ftf {
+  font-family: $ftf;
+}
+.ft-semi{
+  font-family: $font-semi;
+}
+.fixed {
+  position: fixed;
+}
+.pd-0{
+  padding: 0;
+}
+.ml-33{
+  margin-left: 33upx;
+}
+.lz-border-bottom{
+  border-bottom: 1px solid #E4E4E4;
+}

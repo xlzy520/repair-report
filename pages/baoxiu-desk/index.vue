@@ -1,25 +1,50 @@
 <template>
 	<view class="container">
-		<uni-card title="标题文字" thumbnail="https://img-cdn-qiniu.dcloud.net.cn/new-page/uni.png" extra="额外信息" note="Tips">
-		    内容主体，可自定义内容及样式
-		</uni-card>
-		<view class="intro">本项目已包含uni ui组件，无需import和注册，可直接使用。在代码区键入字母u，即可通过代码助手列出所有可用组件。光标置于组件名称处按F1，即可查看组件文档。</view>
-		<text class="intro">详见：</text>
-		<uni-link :href="href" :text="href"></uni-link>
+    <divider-box />
+    <view class="list-content">
+      <desk-list :list=deskList :deskType="deskType" @itemClick="itemClick" />
+    </view>
 	</view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				href: 'https://uniapp.dcloud.io/component/README?id=uniui'
-			}
-		},
-		methods: {
+import homeApi from '../../api/home'
+import { DeskTypeEnum } from '../../utils/enum'
 
-		}
-	}
+export default {
+  data() {
+    return {
+      deskList: [],
+      deskType: ''
+    }
+  },
+  methods: {
+    itemClick(item) {
+      console.log(item)
+    },
+    getList() {
+      uni.showLoading({ title: '数据加载中...' })
+      const requestMapping = [homeApi.getBaoXiuList, homeApi.getWeiXiuList, homeApi.getYanShouList]
+      requestMapping[this.deskType]().then(res => {
+        this.deskList = res
+        console.log(res)
+      }).finally(() => {
+        uni.hideLoading()
+      })
+    },
+
+  },
+  mounted() {
+    this.getList()
+  },
+  onLoad(options) {
+    const deskType = options && Number(options.deskType)
+    uni.setNavigationBarTitle({
+      title: DeskTypeEnum[deskType],
+    })
+    this.deskType = deskType
+  },
+}
 </script>
 
 <style>

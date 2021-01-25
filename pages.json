@@ -1,7 +1,13 @@
 {
   "pages": [
     {
-      "path": "pages/work-space/index",
+      "path": "pages/login/index",
+      "style": {
+        "navigationBarTitleText": "登录"
+      }
+    },
+    {
+      "path": "pages/work-bench/index",
       "style": {
         "navigationBarTitleText": "工作台"
       }
@@ -73,21 +79,21 @@
     }
   ],
   "tabBar": {
-    "color": "#919191",
-    "selectedColor": "#FF6699",
+    "color": "#999",
+    "selectedColor": "#0091FF",
     "backgroundColor": "#fff",
     "position": "bottom",
     "list": [
       {
-        "pagePath": "pages/work-space/index",
+        "pagePath": "pages/work-bench/index",
         "text": "工作台",
-        "iconPath": "/static/c1.png",
-        "selectedIconPath": "/static/c2.png"
+        "iconPath": "/static/tabBar/workBench.png",
+        "selectedIconPath": "/static/tabBar/workBench-selected.png"
       },
       {
         "pagePath": "pages/task-desk/index",
         "text": "任务工单",
-        "iconPath": "/static/c3.png",
+        "iconPath": "/static/tabBar/task-desk.png",
         "selectedIconPath": "/static/c4.png"
       }
     ]

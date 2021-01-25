@@ -51,7 +51,6 @@
           </template>
         </uni-list-item>
 
-
         <uni-list-item title="备注">
           <template slot="footer">
             <view class="uni-textarea">
@@ -69,49 +68,50 @@
 </template>
 
 <script>
-  import EasyUpload from 'components/a-my/easy-upload'
-  export default {
-    components: {
-      EasyUpload,
-    },
-    data() {
-      return {
-        methods: ['位置识别', '区域识别', '图片识别', '扫描二维码'],
-        showItems: ['展品1', '展品2',],
-        currentMethod: 1,
-        currentShowItem: 1,
-        imageList: [],
-        videoList: [],
-        audioList: [],
-        category: 'image',
-        mark: ''
-      }
-    },
-    methods: {
-      successImage (){
+import EasyUpload from 'components/easy-upload/easy-upload'
 
-      },
-      successVideo (){
-
-      },
-      successAudio (){
-
-      },
-      changeInput(e) {
-        this.mark = e.detail.value
-      },
-      changeShowItem(e){
-        console.log(e);
-        this.currentShowItem = e.target.value
-      },
-      changeMethod(e){
-        this.currentMethod = e.target.value
-      },
-      submit(){
-
-      }
+export default {
+  components: {
+    EasyUpload,
+  },
+  data() {
+    return {
+      methods: ['位置识别', '区域识别', '图片识别', '扫描二维码'],
+      showItems: ['展品1', '展品2'],
+      currentMethod: 1,
+      currentShowItem: 1,
+      imageList: [],
+      videoList: [],
+      audioList: [],
+      category: 'image',
+      mark: '',
     }
-  }
+  },
+  methods: {
+    successImage() {
+
+    },
+    successVideo() {
+
+    },
+    successAudio() {
+
+    },
+    changeInput(e) {
+      this.mark = e.detail.value
+    },
+    changeShowItem(e) {
+      console.log(e)
+      this.currentShowItem = e.target.value
+    },
+    changeMethod(e) {
+      this.currentMethod = e.target.value
+    },
+    submit() {
+
+    },
+  },
+}
 </script>
 
 <style lang="scss">

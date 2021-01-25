@@ -1,11 +1,23 @@
 {
   "name": "repair-report",
   "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
+  "version": "1.0.0",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@vant/weapp": "^1.6.1",
+    "dayjs": "^1.9.1"
+  },
+  "devDependencies": {
+    "@dcloudio/types": "^2.0.20",
+    "eslint": "^7.11.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-vue": "^7.0.1"
+  }
 }

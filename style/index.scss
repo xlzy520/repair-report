@@ -1,0 +1,86 @@
+@import "./uview";
+@import "./base";
+
+@mixin base-title{
+  font-size: 32upx;
+  font-family: $font-semi;
+  font-weight: 600;
+  color: #333;
+}
+
+.container{
+  min-height: 100vh;
+}
+.app-container {
+  padding: 30rpx 30rpx 80rpx;
+  font-family: $ftf;
+}
+.df{
+  display: flex;
+}
+.flex-center{
+  align-items: center;
+}
+.confirm-btn {
+  font-family: $ftf;
+  font-size: 32upx;
+  height: 88rpx;
+  line-height: 88rpx;
+  .u-size-default, &.u-size-default{
+    color: #fff!important;
+    border-radius: 88rpx;
+    background: linear-gradient(to right, #52D1FF 0%, #5C77FF 100%);
+    &::after{
+      border: none!important;
+    }
+  }
+}
+
+.base-title{
+  @include base-title;
+}
+.base-title-36{
+  @include base-title;
+  font-size: 36upx;
+}
+.base-subtitle{
+  font-size: 24upx;
+  color: #666666;
+}
+
+.appoint-btn{
+  font-size: 30upx;
+  border-radius: 8upx;
+  width: 126upx;
+  line-height: 56upx;
+  text-align: center;
+  background: #ECF0FF;
+  color: #0091FF;
+}
+
+.list-content{
+  min-height: 300upx;
+}
+
+.abs-center{
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.primary-btn{
+  background: #007aff;
+  color: #fff;
+}
+.warning-btn{
+  background: #c97b27;
+  color: #fff;
+}
+.avatar{
+  background: #4ee317;
+  width: 100upx;
+  height: 100upx;
+  border-radius: 50%;
+}

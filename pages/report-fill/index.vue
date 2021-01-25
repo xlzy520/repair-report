@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import fetch from 'api/index'
+  // import fetch from 'api/index'
 	export default {
 		data() {
 			return {
@@ -31,9 +31,9 @@
         this.content = e.detail.value
       },
       submit (){
-        fetch.getData().then(res => {
-          console.log(res);
-        })
+        // fetch.getData().then(res => {
+        //   console.log(res);
+        // })
       },
 		}
 	}

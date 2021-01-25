@@ -62,7 +62,7 @@
 </template>
 
 <script>
-  import EasyUpload from 'components/a-my/easy-upload'
+  import EasyUpload from 'components/easy-upload/easy-upload'
 	export default {
     components: {
       EasyUpload,
