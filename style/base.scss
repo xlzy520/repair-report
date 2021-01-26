@@ -1,5 +1,3 @@
-@import "uview-ui/libs/css/common";
-
 /* 禁止选中文本 */
 
 .usn {
@@ -190,6 +188,9 @@
 .lh-33{
   line-height: 33upx;
 }
+.lh-28{
+  line-height: 28upx;
+}
 
 .lh-40{
   line-height: 40upx;
@@ -315,5 +316,5 @@ h2 {
   margin-left: 33upx;
 }
 .lz-border-bottom{
-  border-bottom: 1px solid #E4E4E4;
+  border-bottom: 1px solid rgba(216, 216, 216, 0.5);
 }

@@ -45,14 +45,14 @@ export default {
         },
         {
           title: '日报',
-          to: '/pages/report/index',
+          to: '/pages/report-list/index',
           icon: '/static/icon/desk/ribao.png',
         },
-        {
-          title: '展项统计',
-          to: '/pages/loss-rate/index',
-          icon: '/static/icon/desk/zhanxiang.png',
-        }
+        // {
+        //   title: '展项统计',
+        //   to: '/pages/loss-rate/index',
+        //   icon: '/static/icon/desk/zhanxiang.png',
+        // }
       ],
       count: [1, 2, 3, 4, 5].map(String),
     }

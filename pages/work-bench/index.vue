@@ -51,11 +51,11 @@ export default {
           img: '/static/icon/nav/scan.png', title: '扫一扫', subtitle: '扫一扫二维码', url: 'scan',
         },
         {
-          img: '/static/icon/nav/ribao.png', title: '日报', subtitle: '记录展项维修', url: 'ribao',
+          img: '/static/icon/nav/ribao.png', title: '日报', subtitle: '记录展项维修', url: 'daily-report',
         },
-        {
-          img: '/static/icon/nav/gongdan.png', title: '展项工单', subtitle: '查询工单', url: 'gongdan',
-        }
+        // {
+        //   img: '/static/icon/nav/gongdan.png', title: '展项工单', subtitle: '查询工单', url: 'gongdan',
+        // }
       ],
       tabList: [{ name: '报修工单' }, { name: '维修工单' },],
       deskList: [],
@@ -133,6 +133,7 @@ export default {
       padding: 40upx 22upx;
       border-radius: 14upx;
       box-shadow: 0px 0px 20upx 0px rgba(88, 149, 230, 0.17);
+      background: #fff;
     }
     .entry-item{
       width: 320upx;

@@ -9,7 +9,7 @@
 }
 
 .container{
-  min-height: 100vh;
+  min-height: 80vh;
 }
 .app-container {
   padding: 30rpx 30rpx 80rpx;
@@ -94,4 +94,9 @@
     color: #999!important;
     line-height: 33upx;
   }
+}
+.upload-btn-img{
+  width: 151upx;
+  height: 151upx;
+  border: 2upx dashed #979797;
 }

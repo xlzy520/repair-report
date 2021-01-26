@@ -24,6 +24,13 @@ export default {
   maintenance(data) {
     return request(`${BaseUrl}maintenance`, data)
   },
+  // 小程序日报提交 content
+  dailyAdd(data) {
+    return request(`${BaseUrl}daily/acceptance`, data)
+  },
+  getDaily(data) {
+    return request(`${BaseUrl}daily/yanshou/list`, data, 'get')
+  },
   
 
 }

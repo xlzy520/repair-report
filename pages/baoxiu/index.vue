@@ -10,7 +10,6 @@
               <view class="f28 c9 lh-40 u-m-t-20">{{item.label}}</view>
             </view>
           </view>
-<!--          <u-input placeholder="请输入您的手机号" v-model="form.phone" type="number"></u-input>-->
         </u-form-item>
         <u-form-item label="选择展项" required prop="exhibitionId">
           <u-select v-model="exhibitionShow" :list="exhibitionOptions"
@@ -24,7 +23,7 @@
         <u-form-item label="上传照片" required prop="imgList" class="form-item-desc">
           <template slot="right">最多上传3张图片</template>
           <u-upload :action="action" :header="header" :file-list="form.imgList" :custom-btn="true"
-                    max-count="3">
+                    max-count="3" :show-progress="false">
             <view class="layout-cc upload-btn-img" slot="addBtn">
               <u-image src="/static/icon/camera.png" width="65" height="54" ></u-image>
             </view>
@@ -33,7 +32,7 @@
         <u-form-item label="上传视频" required prop="videoList" class="form-item-desc">
           <template slot="right">最多上传3个视频</template>
           <u-upload :action="action" :header="header" upload-type="video" :file-list="form.videoList"
-                    :custom-btn="true" max-count="3">
+                    :custom-btn="true" max-count="3" :show-progress="false">
             <view class="layout-cc upload-btn-img" slot="addBtn">
               <u-image src="/static/icon/video.png" width="72" height="72" ></u-image>
             </view>
@@ -42,7 +41,7 @@
         <u-form-item label="上传音频" prop="audioList" class="form-item-desc row-no-reverse">
           <template slot="right">最多上传3段音频</template>
           <u-upload :action="action" upload-type="media" :custom-btn="true"
-                    max-count="3">
+                    max-count="3" :show-progress="false">
             <view class="layout-cc upload-btn-img" slot="addBtn">
               <u-image src="/static/icon/audio.png" width="57" height="46" ></u-image>
             </view>
@@ -68,7 +67,7 @@
 
 <script>
 import commonApi from '../../api/common'
-import reapirApi from "../../api/reapir";
+import reapirApi from '../../api/reapir'
 
 export default {
   components: {
@@ -132,8 +131,8 @@ export default {
       checkedMethod: 'GPS定位',
       showItems: ['展品1', '展品2'],
       header: {
-        token: uni.getStorageSync('accessToken')
-      }
+        token: uni.getStorageSync('accessToken'),
+      },
     }
   },
   onReady() {
@@ -166,9 +165,9 @@ export default {
     successAudio() {
 
     },
-    getExhibition(){
+    getExhibition() {
       commonApi.near({}).then(res => {
-        console.log(res);
+        console.log(res)
       })
     },
     submit() {
@@ -200,15 +199,6 @@ export default {
     .footer{
       padding-top: 40upx;
       padding-bottom: 40upx;
-    }
-    .upload-btn-img{
-      width: 151upx;
-      height: 151upx;
-      border: 2upx dashed #979797;
-    }
-    ::v-deep .u-preview-wrap{
-      width: 151upx!important;
-      height: 151upx!important;
     }
   }
 </style>

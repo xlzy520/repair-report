@@ -35,16 +35,16 @@
       }
     },
     {
-      "path": "pages/report/index",
+      "path": "pages/daily-report/index",
       "style": {
         "navigationBarTitleText": "日报"
       }
     },
 
     {
-      "path": "pages/report-fill/index",
+      "path": "pages/report-list/index",
       "style": {
-        "navigationBarTitleText": "填写日报"
+        "navigationBarTitleText": "看日报"
       }
     },
     {
