@@ -42,22 +42,22 @@ export default {
           img: '/static/icon/nav/baoxiu.png', title: '报修', subtitle: '讲解员上报维修', url: 'baoxiu',
         },
         {
-          img: '/static/icon/nav/weixiu.png', title: '维修', subtitle: '维修科技展项', url: 'weixiu',
+          img: '/static/icon/nav/weixiu.png', title: '维修', subtitle: '维修科技展项', url: 'desk', deskType: 1,
         },
         {
-          img: '/static/icon/nav/yanshou.png', title: '验收', subtitle: '验收展项维修', url: 'yanshou',
+          img: '/static/icon/nav/yanshou.png', title: '验收', subtitle: '验收展项维修', url: 'desk', deskType: 2,
         },
         {
           img: '/static/icon/nav/scan.png', title: '扫一扫', subtitle: '扫一扫二维码', url: 'scan',
         },
         {
           img: '/static/icon/nav/ribao.png', title: '日报', subtitle: '记录展项维修', url: 'daily-report',
-        },
+        }
         // {
         //   img: '/static/icon/nav/gongdan.png', title: '展项工单', subtitle: '查询工单', url: 'gongdan',
         // }
       ],
-      tabList: [{ name: '报修工单' }, { name: '维修工单' },],
+      tabList: [{ name: '报修工单' }, { name: '维修工单' }],
       deskList: [],
     }
   },
@@ -71,6 +71,8 @@ export default {
     },
     itemClick(item) {
       console.log(item)
+      const type = this.current + 1
+      uni.navigateTo({ url: '/pages/desk-detail/index?id=' + item.orderNo + '&orderType=' + type })
     },
     entryClick(item) {
       if (item.url === 'scan') {
@@ -83,13 +85,14 @@ export default {
         return
       }
       wx.navigateTo({
-        url: `/pages/${item.url}/index`,
+        url: `/pages/${item.url}/index?from=work-bench&deskType=${item.deskType}`,
       })
       console.log(item)
     },
     getList() {
       uni.showLoading({ title: '数据加载中...' })
-      const requestMapping = [reapirApi.getBaoXiuList, reapirApi.getWeiXiuList, reapirApi.getYanShouList]
+      const requestMapping = [reapirApi.getBaoXiuList, reapirApi.getWeiXiuList,
+        reapirApi.getYanShouList]
       requestMapping[this.current]().then(res => {
         this.deskList = res
         console.log(res)

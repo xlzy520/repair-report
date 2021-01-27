@@ -37,10 +37,10 @@
 
 <script>
 
-  import {WeiXiuStatusEnum} from "utils/enum";
-  import {formatTimeYY} from "../../../utils";
+import { WeiXiuStatusEnum } from 'utils/enum'
+import { formatTimeYY } from '../../../utils'
 
-  export default {
+export default {
   data() {
     return {
     }
@@ -56,20 +56,19 @@
     },
 
   },
-    computed: {
-      getDeskTypeText() {
-        return this.deskType === 1 ? '维修': '验收'
-
-      }
+  computed: {
+    getDeskTypeText() {
+      return this.deskType === 1 ? '维修' : '验收'
     },
+  },
   methods: {
     handleItemClick(item) {
       this.$emit('itemClick', item)
     },
-    getStatusText(item){
+    getStatusText(item) {
       return WeiXiuStatusEnum.find(v => v.value === item.status) || ''
     },
-    formatTime(time){
+    formatTime(time) {
       return formatTimeYY(Number(time), 'YYYYMM-DD HH:mm:ss')
     },
   },

@@ -60,6 +60,12 @@
         "navigationBarTitleText": "报修工单"
       }
     },
+    {
+      "path": "pages/desk-detail/index",
+      "style": {
+        "navigationBarTitleText": "工单详情"
+      }
+    },
 
 
     {

@@ -1,6 +1,6 @@
 import request from 'utils/request'
 
-const BaseUrl = '/audience/reapir/'
+const BaseUrl = '/repair/'
 
 export default {
   getWeiXiuList(data) {
@@ -11,6 +11,9 @@ export default {
   },
   getYanShouList(data) {
     return request(`${BaseUrl}yanshou/list`, data, 'get')
+  },
+  getOrderDetail(data) {
+    return request(`${BaseUrl}order/detail`, data, 'get')
   },
   // 小程序验收提交
   acceptance(data) {

@@ -28,8 +28,5 @@ export default {
   updateUserInfo(data) {
     return request('/user/updateUserInfo', data)
   },
-  addLabel(data) {
-    return request('/user/label/add', data)
-  },
 
 }

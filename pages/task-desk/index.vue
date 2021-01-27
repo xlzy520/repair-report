@@ -54,7 +54,7 @@ export default {
         //   icon: '/static/icon/desk/zhanxiang.png',
         // }
       ],
-      count: [1, 2, 3, 4, 5].map(String),
+      count: [0, 0, 0, 0, 0].map(String),
     }
   },
   mounted() {

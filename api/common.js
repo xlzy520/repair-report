@@ -1,6 +1,6 @@
 import request from 'utils/request'
 
-const BaseUrl = '/audience/'
+const BaseUrl = '/repair/'
 
 export default {
   statistics(data) {
