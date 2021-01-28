@@ -1,27 +1,5 @@
 import Vue from 'vue'
 
-// import TitleHeader from 'components/title-header/index'
-// import StarIcon from 'components/base/star-icon'
-import DividerBox from 'components/base/divider-box'
-import LzTabs from 'components/base/lz-tabs'
-import deskList from 'components/base/desk-list'
-// import PreviewNum from 'components/base/preview-num'
-// import VideoCardList from 'components/base/video-card-list'
-// import NavList from 'components/base/nav-list'
-// import TouristNavList from 'components/base/tourist-nav-list'
-// import exhibitions from 'components/base/exhibitions'
-// import remainSoldRow from 'components/base/remain-sold-row'
-// import card from 'components/card'
-// import lzButton from 'components/button'
-// import toggleButton from 'components/toggle-button'
-// import TabList from 'components/TabList'
-// import activeListItem from 'components/active-list-item'
-// import favoriteItem from 'components/favorite-item'
-// import appointTicketListItem from 'components/appoint-ticket-list-item'
-// import ImgTitleIconLayout from 'components/base/ImgTitleIconLayout'
-// import iconTextRow from 'components/base/iconTextRow/index'
-// import graphicCode from 'components/graphic-code'
-//
 // uview组件，用于webstorm代码提示
 import UCalendar from 'uview-ui/components/u-calendar/u-calendar'
 import UButton from 'uview-ui/components/u-button/u-button'
@@ -53,28 +31,12 @@ import UField from 'uview-ui/components/u-field/u-field'
 import UEmpty from 'uview-ui/components/u-empty/u-empty'
 import UBadge from 'uview-ui/components/u-badge/u-badge'
 
+// uniapp 组件及自定义组件
 import uniList from 'components/uni-list/uni-list'
 import uniListItem from 'components/uni-list-item/uni-list-item'
-//
-// Vue.component('title-header', TitleHeader)
-// Vue.component('star-icon', StarIcon)
-Vue.component('divider-box', DividerBox)
-// Vue.component('preview-num', PreviewNum)
-// Vue.component('video-card-list', VideoCardList)
-// Vue.component('nav-list', NavList)
-// Vue.component('tourist-nav-list', TouristNavList)
-// Vue.component('exhibitions', exhibitions)
-// Vue.component('lz-card', card)
-// Vue.component('remain-sold-row', remainSoldRow)
-// Vue.component('toggle-button', toggleButton)
-// Vue.component('tab-list', TabList)
-// Vue.component('active-list-item', activeListItem)
-// Vue.component('favorite-item', favoriteItem)
-// Vue.component('appoint-ticket-list-item', appointTicketListItem)
-// Vue.component('ImgTitleIconLayout', ImgTitleIconLayout)
-// Vue.component('icon-text-row', iconTextRow)
-// Vue.component('lzButton', lzButton)
-// Vue.component('graphicCode', graphicCode)
+import DividerBox from 'components/base/divider-box'
+import LzTabs from 'components/base/lz-tabs'
+import deskList from 'components/base/desk-list'
 
 Vue.component('u-upload', UUpload)
 Vue.component('u-row', URow)
@@ -107,6 +69,7 @@ Vue.component('u-field', UField)
 Vue.component('u-empty', UEmpty)
 Vue.component('u-badge', UBadge)
 
+Vue.component('divider-box', DividerBox)
 Vue.component('uniList', uniList)
 Vue.component('uniListItem', uniListItem)
 Vue.component('LzTabs', LzTabs)
