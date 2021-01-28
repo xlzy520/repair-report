@@ -3,14 +3,14 @@
     <divider-box />
     <view class="desk-detail">
       <view class="info-card">
-        <view class="title">天文望远镜</view>
-        <view class="f36 lh-50 c9">工单号：KJG-IH9NWQ</view>
+        <view class="title">{{orderDetail.exhibitionName}}</view>
+        <view class="ellipsis f36 lh-50 c9 w100">工单号：    {{orderDetail.orderNo}}</view>
         <view class="layout-slide position">
           <view class="f32 c3 lh-50">
             展品位置：
           </view>
           <view class="f32 c9 lh-50">
-            三层4展区
+            {{orderDetail.floor}}{{orderDetail.areaName}}
           </view>
         </view>
         <view class="layout-slide position">
@@ -18,20 +18,20 @@
             派单时间：
           </view>
           <view class="f32 c9 lh-50">
-            2020/08/26 12:25:36
+            {{orderDetail.formatedTime}}
           </view>
         </view>
       </view>
       <view class="info-item-title u-m-t-20">展项照片</view>
       <view class="info-item-content">
         <view class="layout-cc present" v-for="item in orderDetail.imgList" :key="item">
-          <u-image src="/static/icon/audio.png" width="151" height="151" alt="" />
+          <u-image :src="formatUrl(item)" width="151" height="151" alt="" />
         </view>
       </view>
       <view class="info-item-title">展项视频</view>
       <view class="info-item-content">
         <view class="layout-cc present" v-for="item in orderDetail.videoList" :key="item">
-          <u-image src="/static/icon/audio.png" width="151" height="151" alt="" />
+          <video :show-center-play-btn="false" :src="formatUrl(item)" class="w-h-151" width="151" height="151" alt="" />
           <!--          <img src="./play.png" class="play-icon" alt="">-->
         </view>
       </view>
@@ -48,9 +48,9 @@
         {{orderDetail.description}}
       </view>
       <view class="footer">
-        <u-button class="confirm-btn" :disabled="btnLoading" :loading="btnLoading" @click="submit">
-          上报
-        </u-button>
+<!--        <u-button class="confirm-btn" :disabled="btnLoading" :loading="btnLoading" @click="submit">-->
+<!--          上报-->
+<!--        </u-button>-->
       </view>
     </view>
 	</view>
@@ -58,6 +58,7 @@
 
 <script>
 import reapirApi from '../../api/reapir'
+import {formatTimeYY, getFormatImgUrl} from "../../utils";
 
 export default {
   data() {
@@ -69,6 +70,9 @@ export default {
     }
   },
   methods: {
+    formatUrl(url){
+      return getFormatImgUrl(url)
+    },
     getDetail() {
       uni.showLoading({ title: '数据加载中...' })
       reapirApi.getOrderDetail({
@@ -77,9 +81,10 @@ export default {
       }).then(res => {
         console.log(res)
         const detail = res
-        detail.imgList = res.imgUrl.split(',')
-        detail.videoList = res.videoUrl.split(',')
-        detail.audioList = res.audioUrl.split(',')
+        detail.imgList = res.imgUrl?.split(',')
+        detail.videoList = res.videoUrl?.split(',')
+        detail.audioList = res.audioUrl?.split(',')
+        detail.formatedTime = formatTimeYY(Number(detail.createTime), 'YYYY/MM/DD HH:mm:ss')
         this.orderDetail = detail
       }).finally(() => {
         uni.hideLoading()
@@ -110,7 +115,6 @@ export default {
   .info-card{
     width: 690upx;
     margin: auto;
-    height: 400upx;
     background: #f9f9f9;
     border-radius: 16upx;
     margin-top: 50upx;

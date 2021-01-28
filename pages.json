@@ -22,7 +22,7 @@
       }
     },
     {
-      "path": "pages/weixiu/index",
+      "path": "pages/operate/index",
       "style": {
         "navigationBarTitleText": "一键维修"
       }

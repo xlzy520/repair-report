@@ -68,6 +68,7 @@
 <script>
 import commonApi from '../../api/common'
 import reapirApi from '../../api/reapir'
+import { getLocation } from '../../utils'
 
 export default {
   components: {
@@ -96,7 +97,11 @@ export default {
       btnLoading: false,
       rules: {
         exhibitionId: [
-          this.$rules.required('请选择展项')
+          {
+            validator: () => (!!this.form.exhibitionId),
+            message: '请选择展项',
+            trigger: ['blur', 'change'],
+          }
         ],
         imgList: [
           {
@@ -138,7 +143,18 @@ export default {
   onReady() {
     this.$refs.uForm.setRules(this.rules)
   },
+  mounted() {
+    this.getLocation()
+    this.getExhibition()
+  },
   methods: {
+    // 获取当前定位
+    getLocation() {
+      getLocation().then(res => {
+        const { longitude, latitude } = res
+        console.log(res)
+      })
+    },
     getMethodImg(item) {
       const baseUrl = item.url
       const url = item.label === this.checkedMethod ? baseUrl : baseUrl + '_grey'
@@ -149,24 +165,19 @@ export default {
       this.getExhibition()
     },
     changeExhibition(data) {
-      this.form.exhibitionId = data[0].label
+      this.form.exhibitionId = data[0].value
       this.cellTitles.exhibition = data[0].label
     },
 
     openCalendar() {
       this.calendarShow = true
     },
-    successImage() {
-
-    },
-    successVideo() {
-
-    },
-    successAudio() {
-
-    },
     getExhibition() {
       commonApi.near({}).then(res => {
+        this.exhibitionOptions = res.map(v => ({
+          label: v.exhibitionName,
+          value: v.id,
+        }))
         console.log(res)
       })
     },
@@ -195,6 +206,12 @@ export default {
     margin: auto;
     .recognition-methods{
       width: 660upx;
+    }
+    .u-upload{
+      ::v-deep .u-list-item{
+        width: 151upx!important;
+        height: 151upx!important;
+      }
     }
     .footer{
       padding-top: 40upx;

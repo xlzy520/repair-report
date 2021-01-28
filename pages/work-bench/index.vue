@@ -2,8 +2,8 @@
 	<view class="container">
     <view class="bg-header">
       <view class="layout-sc user-info">
-        <view class="avatar"></view>
-        <view class="base-title user-name">讲解员123456</view>
+        <u-image :src="avatar" width="100" border-radius="50" height="100"></u-image>
+        <view class="base-title user-name">{{userInfo.userName}}</view>
       </view>
     </view>
     <view class="float-card">
@@ -32,6 +32,7 @@
 
 <script>
 import reapirApi from 'api/reapir'
+import { getFormatImgUrl } from '../../utils'
 
 export default {
   data() {
@@ -59,12 +60,25 @@ export default {
       ],
       tabList: [{ name: '报修工单' }, { name: '维修工单' }],
       deskList: [],
+      userInfo: {},
     }
   },
+  computed: {
+    avatar() {
+      return getFormatImgUrl(this.userInfo.headerPath)
+    },
+  },
   mounted() {
+    this.getUserInfoFromLocal()
     this.getList()
   },
   methods: {
+    getUserInfoFromLocal() {
+      const userInfoStr = uni.getStorageSync('userInfo')
+      if (userInfoStr) {
+        this.userInfo = JSON.parse(userInfoStr)
+      }
+    },
     tabChange(index) {
       this.current = index
       this.getList()

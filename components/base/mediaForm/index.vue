@@ -20,7 +20,7 @@
     </u-form-item>
     <u-form-item label="上传音频" prop="audioList" class="form-item-desc row-no-reverse">
       <template slot="right">最多上传3段音频</template>
-      <u-upload :action="action" upload-type="media" :custom-btn="true"
+      <u-upload :action="action" upload-type="file" :custom-btn="true" :limit-type="audioLimitType"
                 max-count="3" :show-progress="false">
         <view class="layout-cc upload-btn-img" slot="addBtn">
           <u-image src="/static/icon/audio.png" width="57" height="46" ></u-image>
@@ -32,13 +32,26 @@
       <u-input type="textarea" border height="200" v-model="form.description"
                placeholder="请输入您的备注信息……" />
     </u-form-item>
-
+    <view class="layout-slide footer" v-if="orderType === '1'">
+      <u-button class="confirm-btn" :disabled="btnLoading" :loading="btnLoading" @click="submit">
+        提交维修
+      </u-button>
+      <u-button class="confirm-btn contact" @click="contact">
+        联系厂家
+      </u-button>
+    </view>
+    <view class="layout-slide footer" v-if="orderType === '2'">
+      <u-button class="confirm-btn" :disabled="btnLoading" :loading="btnLoading" @click="submit(2)">
+        通过
+      </u-button>
+      <u-button class="confirm-btn contact" @click="reject">
+        驳回
+      </u-button>
+    </view>
   </u-form>
 </template>
 
 <script>
-
-import reapirApi from 'api/reapir'
 
 export default {
   data() {
@@ -56,6 +69,7 @@ export default {
         token: uni.getStorageSync('accessToken'),
       },
       btnLoading: false,
+      audioLimitType: ['mp3', 'wma', 'avi'],
       rules: {
         imgList: [
           {
@@ -83,29 +97,30 @@ export default {
     }
   },
   props: {
-    tabList: {
-      type: Array,
-      default: () => ([]),
-    },
-    text: {
+    orderType: {
       type: String,
       default: '',
     },
-
   },
   methods: {
-    submit() {
+    submit(status) {
       this.$refs.uForm.validate(valid => {
         if (valid) {
-          this.btnLoading = true
-          reapirApi.add(this.form).then(res => {
-            console.log(res)
-            // uni.showToast({ title: '提交'})
-          }).finally(() => {
-            this.btnLoading = false
-          })
-          console.log(this.form)
+          const basePayload = this.form
+          if (status) {
+            basePayload.status = status
+          }
+          this.$emit('submit', basePayload)
         }
+      })
+    },
+    contact() {
+
+    },
+    reject() {
+      this.$emit('submit', {
+        ...this.form,
+        status: -1,
       })
     },
   },
@@ -115,5 +130,17 @@ export default {
   ::v-deep .u-preview-wrap{
     width: 151upx!important;
     height: 151upx!important;
+    margin-right: 28upx;
+  }
+  .footer{
+    padding-top: 72upx;
+    .confirm-btn{
+      width: 315upx;
+      background: linear-gradient(to right, #0AC7FF 0%, #5AA6FF 100%);
+      &.contact{
+        color: #10A7FE!important;
+        background: #CFEFFF;
+      }
+    }
   }
 </style>

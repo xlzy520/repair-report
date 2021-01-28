@@ -1,11 +1,11 @@
 <template>
   <view class="container">
-    <desk-info :order-no="orderNo" :order-type="1" />
+    <desk-info :order-no="orderNo" :order-type="orderType" />
     <divider-box ml height="40rpx" />
     <view class="weixiu">
-      <desk-title title="维修工单" width="46.5rpx" height="46.5rpx"
+      <desk-title :title="formTitle"
                   img="/static/icon/desk/weixiu.png" />
-      <mediaForm @submit="submit" />
+      <mediaForm @submit="submit" :order-type="orderType" />
     </view>
   </view>
 </template>
@@ -25,18 +25,30 @@ export default {
   data() {
     return {
       orderNo: '',
+      orderType: 1,
+      titleMapping: ['报修', '维修', '验收'],
     }
+  },
+  computed: {
+    formTitle() {
+      return this.orderType > 1 ? '验收' : '维修工单'
+    },
   },
   onLoad(options) {
     if (options) {
-      const { orderNo } = options
+      const { orderNo, orderType } = options
       this.orderNo = orderNo
+      this.orderType = orderType
+      uni.setNavigationBarTitle({
+        title: this.titleMapping[orderType],
+      })
     }
   },
   methods: {
     submit(formData) {
       uni.showLoading({ title: '数据提交中...' })
-      reapirApi.acceptance({ ...formData, repairLogId: this.orderNo }).then(res => {
+      const service = this.orderType > 1 ? reapirApi.acceptance : reapirApi.maintenance
+      service({ ...formData, repairLogId: this.orderNo }).then(res => {
         console.log(res)
         // uni.showToast({ title: '提交'})
       }).finally(() => {

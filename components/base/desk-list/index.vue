@@ -14,8 +14,8 @@
             <u-tag v-else text="驳回" color="#FB7272" bg-color="#FFDCDC" />
           </view>
         </view>
-        <view class="layout-qz base-subtitle f30 address-row">
-          <view class="">位置: {{item.floor}}层{{item.areaName}}展区</view>
+        <view class="layout-slide base-subtitle f30 address-row">
+          <view class="">位置: {{item.floor}}{{item.areaName}}</view>
           <view class="ellipsis order-no">单号: {{item.orderNo}}</view>
         </view>
         <view class="base-subtitle f28 layout-slide time-row" v-if="deskType">
@@ -69,7 +69,7 @@ export default {
       return WeiXiuStatusEnum.find(v => v.value === item.status) || ''
     },
     formatTime(time) {
-      return formatTimeYY(Number(time), 'YYYYMM-DD HH:mm:ss')
+      return formatTimeYY(Number(time), 'YYYY-MM-DD HH:mm:ss')
     },
   },
 }
@@ -91,7 +91,7 @@ export default {
     }
     .order-no{
       margin-left: 33upx;
-      width: 300upx;
+      width: 260upx;
     }
     .desk-status{
       margin-left: 28upx;

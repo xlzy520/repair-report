@@ -8,7 +8,7 @@ export default {
   },
   // lat lon
   near(data) {
-    data = { lat: 136.634525, lon: 36.786533 }
+    data = { lat: 36.786533, lon: 136.634525 }
     return request(`${BaseUrl}exhibition/near`, data, 'get')
   },
   upload(data) {

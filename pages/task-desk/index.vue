@@ -2,11 +2,11 @@
 	<view class="container">
 		<view class="layout-slide header">
       <view class="header-left">
-        <view class="base-title name">路工</view>
+        <view class="base-title name">{{userInfo.userName}}</view>
         <view class="base-subtitle position">部门领导</view>
       </view>
       <view class="header-right">
-        <image src="" class="avatar"></image>
+        <u-image :src="avatar" width="100" border-radius="50" height="100"></u-image>
       </view>
     </view>
     <divider-box />
@@ -23,6 +23,7 @@
 <script>
 import commonApi from 'api/common'
 import { TaskDeskStatisticsEnum } from '../../utils/enum'
+import {getFormatImgUrl} from "../../utils";
 
 export default {
   data() {
@@ -55,12 +56,25 @@ export default {
         // }
       ],
       count: [0, 0, 0, 0, 0].map(String),
+      userInfo: {},
     }
   },
   mounted() {
+    this.getUserInfoFromLocal()
     this.getDetail()
   },
+  computed: {
+    avatar() {
+      return getFormatImgUrl(this.userInfo.headerPath)
+    },
+  },
   methods: {
+    getUserInfoFromLocal() {
+      const userInfoStr = uni.getStorageSync('userInfo')
+      if (userInfoStr) {
+        this.userInfo = JSON.parse(userInfoStr)
+      }
+    },
     getDetail() {
       uni.showLoading({ title: '数据加载中...' })
       commonApi.statistics().then(res => {
