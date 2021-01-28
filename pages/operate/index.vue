@@ -1,6 +1,6 @@
 <template>
   <view class="container">
-    <desk-info :order-no="orderNo" :order-type="orderType" />
+    <desk-info :order-no="orderNo" :order-type="orderType" @getId="getId" />
     <divider-box ml height="40rpx" />
     <view class="weixiu">
       <desk-title :title="formTitle"
@@ -27,6 +27,7 @@ export default {
       orderNo: '',
       orderType: 1,
       titleMapping: ['报修', '维修', '验收'],
+      id: ''
     }
   },
   computed: {
@@ -45,10 +46,13 @@ export default {
     }
   },
   methods: {
+    getId(id){
+      this.id = id
+    },
     submit(formData) {
       uni.showLoading({ title: '数据提交中...' })
       const service = this.orderType > 1 ? reapirApi.acceptance : reapirApi.maintenance
-      service({ ...formData, repairLogId: this.orderNo }).then(res => {
+      service({ ...formData, repairLogId: this.id }).then(res => {
         console.log(res)
         // uni.showToast({ title: '提交'})
       }).finally(() => {

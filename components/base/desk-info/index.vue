@@ -84,6 +84,7 @@ export default {
         detail.audioList = res.audioUrl?.split(',')
         detail.formatedTime = formatTimeYY(Number(detail.createTime), 'YYYY/MM/DD HH:mm:ss')
         this.orderDetail = detail
+        this.$emit('getId', detail.id);
       }).finally(() => {
         uni.hideLoading()
       })
