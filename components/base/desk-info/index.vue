@@ -30,7 +30,7 @@
 
 import reapirApi from 'api/reapir'
 import DeskTitle from 'components/base/desk-title'
-import {formatTimeYY, getFormatImgUrl} from '../../../utils'
+import { formatTimeYY, getFormatImgUrl } from '../../../utils'
 
 export default {
   components: {
@@ -41,54 +41,23 @@ export default {
       type: String,
       default: '',
     },
-    orderNo: {
-      type: String,
-      default: '',
+    orderDetail: {
+      type: Object,
+      default: () => ({}),
     },
   },
   computed: {
     title() {
-      return this.orderType > 1 ? '维修工单': '验收工单'
-    }
+      return this.orderType > 1 ? '维修工单' : '验收工单'
+    },
   },
   data() {
     return {
-      orderDetail: {
-        orderNo: 'dasdasdasdjhasodjals',
-        imgList: ['/casic/homephoto1611586560131.png?Expires=1926946556&OSSAccessKeyId=LTAIcJhIvHfvkTao&Signature=k1iIL1zp6fQKf0GW9E32iXiAMTo%3D',
-          '/casic/homephoto1611586560131.png?Expires=1926946556&OSSAccessKeyId=LTAIcJhIvHfvkTao&Signature=k1iIL1zp6fQKf0GW9E32iXiAMTo%3D'],
-        videoList: ['/casic/homephoto1611588037969.mov?Expires=1926948030&OSSAccessKeyId=LTAIcJhIvHfvkTao&Signature=JjhoNf3zoLuYYa63ZMwQAtmNN8k%3D'],
-        audioList: [],
-        description: '312312321',
-      },
     }
   },
-  mounted() {
-    this.getDetail()
-  },
+
   methods: {
-    formatUrl(url) {
-      return getFormatImgUrl(url)
-    },
-    getDetail() {
-      uni.showLoading({ title: '数据加载中...' })
-      reapirApi.getOrderDetail({
-        orderType: this.orderType,
-        orderNo: this.orderNo,
-      }).then(res => {
-        console.log(res)
-        const detail = res
-        detail.orderNo = detail.orderNo.substr(0, 20)+'...'
-        detail.imgList = res.imgUrl?.split(',')
-        detail.videoList = res.videoUrl?.split(',')
-        detail.audioList = res.audioUrl?.split(',')
-        detail.formatedTime = formatTimeYY(Number(detail.createTime), 'YYYY/MM/DD HH:mm:ss')
-        this.orderDetail = detail
-        this.$emit('getId', detail.id);
-      }).finally(() => {
-        uni.hideLoading()
-      })
-    },
+
   },
 }
 </script>

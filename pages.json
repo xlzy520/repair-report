@@ -16,12 +16,6 @@
       }
     },
     {
-      "path": "pages/yanshou/index",
-      "style": {
-        "navigationBarTitleText": "一键验收"
-      }
-    },
-    {
       "path": "pages/operate/index",
       "style": {
         "navigationBarTitleText": "一键维修"
@@ -64,14 +58,6 @@
       "path": "pages/desk-detail/index",
       "style": {
         "navigationBarTitleText": "工单详情"
-      }
-    },
-
-
-    {
-      "path": "pages/loss-rate/index",
-      "style": {
-        "navigationBarTitleText": "损坏率"
       }
     }
   ],

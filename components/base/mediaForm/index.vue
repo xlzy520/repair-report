@@ -101,6 +101,10 @@ export default {
       type: String,
       default: '',
     },
+    orderDetail: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   methods: {
     submit(status) {
@@ -115,7 +119,7 @@ export default {
       })
     },
     contact() {
-
+      uni.makePhoneCall({ phoneNumber: this.orderDetail.phone })
     },
     reject() {
       this.$emit('submit', {
