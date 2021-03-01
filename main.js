@@ -1,16 +1,23 @@
 import Vue from 'vue'
 import uView from 'uview-ui'
 import dayjs from 'dayjs'
-import App from './App'
 // import formRules from './utils/formRules'
 import './style/index.scss'
 import './components'
 
-// import isToday from 'dayjs/plugin/isToday'
-// import isTomorrow from 'dayjs/plugin/isTomorrow'
+// uniapp 组件及自定义组件
+import uniList from 'components/uni-list/uni-list'
+import uniListItem from 'components/uni-list-item/uni-list-item'
+import DividerBox from 'components/base/divider-box'
+import LzTabs from 'components/base/lz-tabs'
+import deskList from 'components/base/desk-list'
+import App from './App'
 
-// dayjs.extend(isToday)
-// dayjs.extend(isTomorrow)
+Vue.component('divider-box', DividerBox)
+Vue.component('uniList', uniList)
+Vue.component('uniListItem', uniListItem)
+Vue.component('LzTabs', LzTabs)
+Vue.component('desk-list', deskList)
 
 Vue.config.productionTip = false
 Vue.prototype.$dayjs = dayjs

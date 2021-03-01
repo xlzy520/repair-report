@@ -34,6 +34,14 @@ export default {
   getDaily(data) {
     return request(`${BaseUrl}daily/yanshou/list`, data, 'get')
   },
+  // 区域识别
+  areaSearch(data) {
+    return request(`${BaseUrl}exhibition/area/search`, data, 'get')
+  },
+  // 区域识别
+  imageSearch(data) {
+    return request(`${BaseUrl}exhibition/image/search`, data, 'get')
+  },
   
 
 }

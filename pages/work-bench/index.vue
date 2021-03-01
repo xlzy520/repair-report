@@ -32,6 +32,7 @@
 
 <script>
 import reapirApi from 'api/reapir'
+import commonApi from 'api/common'
 import { getFormatImgUrl } from '../../utils'
 
 export default {
@@ -68,9 +69,14 @@ export default {
       return getFormatImgUrl(this.userInfo.headerPath)
     },
   },
-  mounted() {
+  onShow() {
     this.getUserInfoFromLocal()
     this.getList()
+  },
+  onLoad() {
+  },
+  mounted() {
+
   },
   methods: {
     getUserInfoFromLocal() {
@@ -91,14 +97,27 @@ export default {
     entryClick(item) {
       if (item.url === 'scan') {
         uni.scanCode({
-          success(res) {
+          success: (res) => {
+            commonApi.scan({
+              qr: 'wsx',
+              // qr: res.result,
+            }).then(res => {
+              console.log(res)
+              if (res) {
+                if (res.exhibitionName) {
+                  uni.navigateTo({
+                    url: `/pages/baoxiu/index?from=work-bench&qr=${res.result}`,
+                  })
+                }
+              }
+            })
             console.log('条码类型：' + res.scanType)
             console.log('条码内容：' + res.result)
           },
         })
         return
       }
-      wx.navigateTo({
+      uni.navigateTo({
         url: `/pages/${item.url}/index?from=work-bench&deskType=${item.deskType}`,
       })
       console.log(item)
@@ -121,7 +140,7 @@ export default {
 <style lang="scss">
   .bg-header{
     height: 400upx;
-    background-image: url("/static/img/home_bg.png");
+    background-image: url("https://youngj.oss-cn-huhehaote.aliyuncs.com/casic/banner_icon/14.jpg");
     background-position: center;
     background-size: cover;
     .user-info{

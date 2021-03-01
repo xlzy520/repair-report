@@ -37,7 +37,7 @@ const getHeader = (method, url) => {
 const request = (url, data, method = POST) => new Promise((resolve, reject) => {
   if (method !== UPLOAD) {
     uni.request({
-      url: `/api${url}`,
+      url: `${baseUrl}/api${url}`,
       method,
       data,
       header: getHeader(method, url),

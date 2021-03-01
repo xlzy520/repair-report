@@ -1,6 +1,6 @@
 {
     "name" : "repair-report",
-    "appid" : "wx7d81ab35c5db52b5",
+    "appid" : "",
     "description" : "",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -49,11 +49,16 @@
     /* 快应用特有相关 */
     "mp-weixin" : {
         /* 小程序特有相关 */
-        "appid" : "",
+        "appid" : "wxa320be7d7c5803fd",
         "setting" : {
             "urlCheck" : false
         },
-        "usingComponents" : true
+      "permission" : {
+        "scope.userLocation" : {
+          "desc" : "你的位置信息将用于小程序位置接口的效果展示"
+        }
+      },
+      "usingComponents" : true
     },
     "h5" : {
         "devServer" : {

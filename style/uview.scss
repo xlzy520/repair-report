@@ -26,7 +26,7 @@
 .lzy-form .u-form-item{
   &.row-no-reverse{
     .u-form-item--left__content{
-      flex-direction: row;
+      flex-direction: row!important;
     }
   }
   .u-form-item--left__content {
@@ -44,6 +44,14 @@
       color: #333333;
       flex: unset!important;
       min-width: 70rpx;
+    }
+  }
+}
+
+.row-no-reverse{
+  .u-form-item{
+    .u-form-item--left__content{
+      flex-direction: row!important;
     }
   }
 }

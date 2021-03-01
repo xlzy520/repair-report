@@ -14,4 +14,7 @@ export default {
   upload(data) {
     return request('/common/file/upload', data, 'UPLOAD')
   },
+  scan(data) {
+    return request(`${BaseUrl}/scan`, data)
+  },
 }

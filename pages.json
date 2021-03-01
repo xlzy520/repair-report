@@ -4,15 +4,15 @@
   },
   "pages": [
     {
-      "path": "pages/login/index",
-      "style": {
-        "navigationBarTitleText": "登录"
-      }
-    },
-    {
       "path": "pages/work-bench/index",
       "style": {
         "navigationBarTitleText": "工作台"
+      }
+    },
+    {
+      "path": "pages/login/index",
+      "style": {
+        "navigationBarTitleText": "登录"
       }
     },
     {
@@ -61,6 +61,11 @@
       }
     }
   ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
   "tabBar": {
     "color": "#999",
     "selectedColor": "#0091FF",

@@ -30,7 +30,7 @@
           </u-form-item>
         </u-form>
       </view>
-      <u-button class="confirm-btn" :disabled="loading" :loading="loading" @tap="toLogin">
+      <u-button class="confirm-btn" :disabled="loading" :loading="loading" @click="toLogin">
         登录
       </u-button>
 		</view>

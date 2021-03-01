@@ -11,6 +11,15 @@
             </view>
           </view>
         </u-form-item>
+        <u-form-item v-if="checkMethodIsImg" label="请选择图片" required>
+          <u-upload action="/api/repair/exhibition/image/search" :header="header"
+                    name="image" :file-list="fileList" :custom-btn="true"
+                    max-count="1" :show-progress="false" @on-success="uploadCheckImgSuccess">
+            <view class="layout-cc upload-btn-img" slot="addBtn">
+              <u-image src="/static/icon/camera.png" width="65" height="54" ></u-image>
+            </view>
+          </u-upload>
+        </u-form-item>
         <u-form-item label="选择展项" required prop="exhibitionId">
           <u-select v-model="exhibitionShow" :list="exhibitionOptions"
                     @confirm="changeExhibition" />
@@ -31,7 +40,8 @@
         </u-form-item>
         <u-form-item label="上传视频" required prop="videoList" class="form-item-desc">
           <template slot="right">最多上传3个视频</template>
-          <u-upload :action="action" :header="header" upload-type="video" :file-list="form.videoList"
+          <u-upload :action="action" :header="header" upload-type="video"
+                    :file-list="form.videoList"
                     :custom-btn="true" max-count="3" :show-progress="false">
             <view class="layout-cc upload-btn-img" slot="addBtn">
               <u-image src="/static/icon/video.png" width="72" height="72" ></u-image>
@@ -49,7 +59,8 @@
         </u-form-item>
 
         <u-form-item label="备注" prop="description" :border-bottom="false" class="row-no-reverse">
-          <u-input type="textarea" border height="200" v-model="form.description" placeholder="请输入您的备注信息……" />
+          <u-input type="textarea" border height="200" v-model="form.description"
+                   placeholder="请输入您的备注信息……" />
         </u-form-item>
 
       </u-form>
@@ -85,12 +96,7 @@ export default {
       },
       fileList: [],
       exhibitionShow: false,
-      exhibitionOptions: [
-        { label: '一年', value: '1' },
-        { label: '两年', value: '2' },
-        { label: '三年', value: '3' },
-        { label: '四年', value: '4' }
-      ],
+      exhibitionOptions: [],
       cellTitles: {
         exhibition: '请选择报修展项',
       },
@@ -128,32 +134,51 @@ export default {
       },
       baseMethodsIconPath: '/static/icon/methods/',
       methods: [
-        { label: 'GPS定位', url: 'gps' },
-        { label: '区域识别', url: 'quyu' },
-        { label: '二维码识别', url: 'qrcode' },
-        { label: '照片识别', url: 'photo' }
+        { label: 'GPS定位', url: 'gps', method: this.getExhibition },
+        { label: '区域识别', url: 'quyu', method: this.areaSearch },
+        { label: '二维码识别', url: 'qrcode', method: this.scanQRcode },
+        { label: '照片识别', url: 'photo', method: this.imageSearch }
       ],
       checkedMethod: 'GPS定位',
       showItems: ['展品1', '展品2'],
       header: {
         token: uni.getStorageSync('accessToken'),
       },
+      qr: '',
     }
+  },
+  computed: {
+    checkMethodIsImg() {
+      return this.checkedMethod === '照片识别'
+    },
   },
   onReady() {
     this.$refs.uForm.setRules(this.rules)
   },
   mounted() {
-    this.getLocation()
-    this.getExhibition()
+    if (!this.qr) {
+      this.getExhibition()
+    }
+  },
+  onLoad(options) {
+    if (options) {
+      const { qr } = options
+      this.qr = qr
+      this.checkedMethod = '二维码识别'
+      this.scanRequest(qr)
+    }
   },
   methods: {
-    // 获取当前定位
-    getLocation() {
-      getLocation().then(res => {
-        const { longitude, latitude } = res
-        console.log(res)
-      })
+    format(data) {
+      return data.map(v => ({
+        label: v.exhibitionName,
+        value: v.id,
+      }))
+    },
+    uploadCheckImgSuccess(data) {
+      if (data) {
+        this.exhibitionOptions = this.format(data)
+      }
     },
     getMethodImg(item) {
       const baseUrl = item.url
@@ -162,23 +187,44 @@ export default {
     },
     checkMethod(item) {
       this.checkedMethod = item.label
-      this.getExhibition()
+      item.method()
     },
     changeExhibition(data) {
       this.form.exhibitionId = data[0].value
       this.cellTitles.exhibition = data[0].label
     },
-
-    openCalendar() {
-      this.calendarShow = true
-    },
     getExhibition() {
-      commonApi.near({}).then(res => {
-        this.exhibitionOptions = res.map(v => ({
-          label: v.exhibitionName,
-          value: v.id,
-        }))
+      getLocation().then(res => {
+        const { longitude, latitude } = res
+        commonApi.near({
+          lat: latitude,
+          lon: longitude,
+        }).then(res => {
+          this.exhibitionOptions = this.format(res)
+          console.log(res)
+        })
+      })
+    },
+    areaSearch() {
+      reapirApi.areaSearch().then(res => {
         console.log(res)
+        this.exhibitionOptions = this.format(res)
+      })
+    },
+    imageSearch() {},
+    scanRequest(qr) {
+      commonApi.scan({ qr: 'wsx' }).then(res => {
+        if (res) {
+          this.exhibitionOptions = this.format([res])
+        }
+        console.log(res)
+      })
+    },
+    scanQRcode() {
+      uni.scanCode({
+        success: (res) => {
+          this.scanRequest(res.result)
+        },
       })
     },
     submit() {
@@ -187,7 +233,10 @@ export default {
           this.btnLoading = true
           reapirApi.add(this.form).then(res => {
             console.log(res)
-            // uni.showToast({ title: '提交'})
+            uni.showToast({ title: '提交成功' })
+            setTimeout(() => {
+              uni.navigateBack()
+            }, 500)
           }).finally(() => {
             this.btnLoading = false
           })
