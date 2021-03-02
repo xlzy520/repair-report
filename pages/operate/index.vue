@@ -79,20 +79,19 @@ export default {
         detail.audioList = res.audioUrl?.split(',')
         detail.formatedTime = formatTimeYY(Number(detail.createTime), 'YYYY/MM/DD HH:mm:ss')
         this.orderDetail = detail
-        this.$emit('getId', detail.id);
+        this.id = res.id
+        // this.$emit('getId', detail.orderNo);
       }).finally(() => {
         uni.hideLoading()
       })
-    },
-    getId(id){
-      this.id = id
     },
     submit(formData) {
       uni.showLoading({ title: '数据提交中...' })
       const service = this.orderType > 1 ? reapirApi.acceptance : reapirApi.maintenance
       service({ ...formData, repairLogId: this.id }).then(res => {
         console.log(res)
-        // uni.showToast({ title: '提交'})
+        uni.showToast({ title: '提交成功'})
+        uni.navigateTo({ url: `/pages/desk/index?form=detail&orderType=${this.orderType}` })
       }).finally(() => {
         uni.hideLoading()
       })

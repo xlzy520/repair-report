@@ -373,6 +373,7 @@ export default {
           if (this.autoUpload) this.uploadFile(listOldLength)
         })
         .catch(error => {
+          console.log(error);
           this.$emit('on-choose-fail', error)
         })
     },

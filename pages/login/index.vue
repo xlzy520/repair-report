@@ -111,11 +111,8 @@ export default {
           userApi.login({
             ...this.loginParams,
           }).then(res => {
-            console.log(res)
             uni.switchTab({ url: '/pages/work-bench/index' })
-            this.navTo('/pages/home/index')
             uni.setStorageSync('accessToken', res.accessToken)
-            this.findUserInfo()
           }).finally(() => {
             this.loading = false
           })

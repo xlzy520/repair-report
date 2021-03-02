@@ -1,5 +1,6 @@
 @import "./uview";
 @import "./base";
+@import "./custom";
 
 @mixin base-title{
   font-size: 32upx;
@@ -34,6 +35,9 @@
     &::after{
       border: none!important;
     }
+  }
+  &.logout{
+    width: auto;
   }
 }
 

@@ -16,6 +16,10 @@
                        :thumb="item.icon" class="list-item"
                        v-for="(item, index) in list" :key="item.title"/>
       </uni-list>
+      <divider-box />
+      <u-button class="confirm-btn logout" @click="logout">
+        退出登录
+      </u-button>
     </view>
 	</view>
 </template>
@@ -23,7 +27,7 @@
 <script>
 import commonApi from 'api/common'
 import { TaskDeskStatisticsEnum } from '../../utils/enum'
-import {getFormatImgUrl} from "../../utils";
+import { getFormatImgUrl } from '../../utils'
 
 export default {
   data() {
@@ -48,7 +52,7 @@ export default {
           title: '日报',
           to: '/pages/report-list/index',
           icon: '/static/icon/desk/ribao.png',
-        },
+        }
         // {
         //   title: '展项统计',
         //   to: '/pages/loss-rate/index',
@@ -69,6 +73,10 @@ export default {
     },
   },
   methods: {
+    logout() {
+      uni.clearStorageSync()
+      uni.navigateTo({url: '/pages/login/index'})
+    },
     getUserInfoFromLocal() {
       const userInfoStr = uni.getStorageSync('userInfo')
       if (userInfoStr) {

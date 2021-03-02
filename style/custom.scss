@@ -1,0 +1,24 @@
+.u-preview-wrap{
+  width: 151upx!important;
+  height: 151upx!important;
+  margin-right: 28upx;
+}
+
+
+.media-form{
+  .confirm-btn{
+    width: 315upx;
+    .u-btn {
+      background: linear-gradient(to right, #0AC7FF 0%, #5AA6FF 100%);
+    }
+
+    &.contact{
+      color: #10A7FE!important;
+      .u-btn {
+        color: #10A7FE!important;
+        background: #CFEFFF;
+      }
+    }
+  }
+
+}

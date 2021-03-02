@@ -34,6 +34,7 @@
 import reapirApi from 'api/reapir'
 import commonApi from 'api/common'
 import { getFormatImgUrl } from '../../utils'
+import userApi from "../../api/user";
 
 export default {
   data() {
@@ -74,13 +75,21 @@ export default {
     this.getList()
   },
   onLoad() {
+    this.findUserInfo()
   },
   mounted() {
 
   },
   methods: {
+    findUserInfo() {
+      userApi.findUserInfo().then(res => {
+        this.userInfo = res
+        uni.setStorageSync('userInfo', JSON.stringify(res))
+      })
+    },
     getUserInfoFromLocal() {
       const userInfoStr = uni.getStorageSync('userInfo')
+      console.log(userInfoStr);
       if (userInfoStr) {
         this.userInfo = JSON.parse(userInfoStr)
       }

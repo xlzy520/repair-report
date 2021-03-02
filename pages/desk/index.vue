@@ -16,11 +16,12 @@ export default {
     return {
       deskList: [],
       deskType: '',
+      form: ''
     }
   },
   methods: {
     itemClick(item) {
-      uni.navigateTo({ url: '/pages/desk-detail/index?id=' + item.orderNo + '&orderType=' + this.deskType })
+      uni.navigateTo({ url: '/pages/operate/index?orderNo=' + item.orderNo + '&orderType=' + this.deskType })
     },
     getList() {
       uni.showLoading({ title: '数据加载中...' })
@@ -34,8 +35,8 @@ export default {
         if (this.from === 'work-bench') {
           const len = res && res.length
           if (len) {
-            const data = res[0]
-            uni.navigateTo({ url: `/pages/operate/index?orderNo=${data.orderNo}&orderType=${this.deskType}` })
+            // const data = res[0]
+            // this.itemClick(data)
           } else {
             this.$showToast('暂无报修工单，请先添加报修工单')
           }
@@ -47,7 +48,7 @@ export default {
     },
 
   },
-  mounted() {
+  onShow() {
     this.getList()
   },
   onLoad(options) {

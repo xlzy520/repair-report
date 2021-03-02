@@ -163,9 +163,11 @@ export default {
   onLoad(options) {
     if (options) {
       const { qr } = options
-      this.qr = qr
-      this.checkedMethod = '二维码识别'
-      this.scanRequest(qr)
+      if (qr) {
+        this.qr = qr
+        this.checkedMethod = '二维码识别'
+        this.scanRequest(qr)
+      }
     }
   },
   methods: {

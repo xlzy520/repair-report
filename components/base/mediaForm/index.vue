@@ -1,5 +1,5 @@
 <template>
-  <u-form :model="form" ref="uForm" label-position="top" class="lzy-form">
+  <u-form :model="form" ref="uForm" label-position="top" class="lzy-form media-form">
     <u-form-item label="上传照片" required prop="imgList" class="form-item-desc">
       <template slot="right">最多上传3张图片</template>
       <u-upload :action="action" :header="header" :file-list="form.imgList" :custom-btn="true"
@@ -20,7 +20,7 @@
     </u-form-item>
     <u-form-item label="上传音频" prop="audioList" class="form-item-desc row-no-reverse">
       <template slot="right">最多上传3段音频</template>
-      <u-upload :action="action" upload-type="file" :custom-btn="true" :limit-type="audioLimitType"
+      <u-upload :action="action" upload-type="file" :custom-btn="true" :limitType="audioLimitType"
                 max-count="3" :show-progress="false">
         <view class="layout-cc upload-btn-img" slot="addBtn">
           <u-image src="/static/icon/audio.png" width="57" height="46" ></u-image>
@@ -130,26 +130,8 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-  ::v-deep .u-preview-wrap{
-    width: 151upx!important;
-    height: 151upx!important;
-    margin-right: 28upx;
-  }
+<style lang="scss">
   .footer{
     padding-top: 72upx;
-    ::v-deep .confirm-btn{
-      width: 315upx;
-      .u-size-default {
-        background: linear-gradient(to right, #0AC7FF 0%, #5AA6FF 100%);
-      }
-
-      &.contact{
-        color: #10A7FE!important;
-        .u-size-default {
-          background: #CFEFFF;
-        }
-      }
-    }
   }
 </style>
