@@ -56,7 +56,7 @@
 export default {
   data() {
     return {
-      action: '/api/common/file/upload',
+      action: 'http://124.204.48.137:9001/api/common/file/upload',
       form: {
         exhibitionId: '',
         imgList: ['/casic/homephoto1611586560131.png?Expires=1926946556&OSSAccessKeyId=LTAIcJhIvHfvkTao&Signature=k1iIL1zp6fQKf0GW9E32iXiAMTo%3D'],
