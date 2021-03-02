@@ -99,8 +99,8 @@ export default {
         uni.scanCode({
           success: (res) => {
             commonApi.scan({
-              qr: 'wsx',
-              // qr: res.result,
+              // qr: 'wsx',
+              qr: res.result,
             }).then(res => {
               console.log(res)
               if (res) {

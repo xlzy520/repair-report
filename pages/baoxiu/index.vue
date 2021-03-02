@@ -4,7 +4,7 @@
       <u-form :model="form" ref="uForm" label-position="top" class="lzy-form">
         <u-form-item label="选择识别方式" required prop="method">
           <view class="layout-slide recognition-methods">
-            <view class="layout-cc recognition-item" v-for="item in methods" :key="item.title"
+            <view class="layout-cc recognition-item" v-for="item in methods"
                   @click="checkMethod(item)">
               <u-image :src="getMethodImg(item)" width="101" height="100" />
               <view class="f28 c9 lh-40 u-m-t-20">{{item.label}}</view>
@@ -213,7 +213,7 @@ export default {
     },
     imageSearch() {},
     scanRequest(qr) {
-      commonApi.scan({ qr: 'wsx' }).then(res => {
+      commonApi.scan({ qr }).then(res => {
         if (res) {
           this.exhibitionOptions = this.format([res])
         }
