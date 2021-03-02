@@ -66,6 +66,10 @@ export default {
       height: 67upx!important;
       line-height: 67upx!important;
       margin: 0;
+      ::v-deep .u-size-default, &.u-size-default{
+        height: 67upx!important;
+        line-height: 67upx!important;
+      }
     }
   }
 </style>

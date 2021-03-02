@@ -138,12 +138,17 @@ export default {
   }
   .footer{
     padding-top: 72upx;
-    .confirm-btn{
+    ::v-deep .confirm-btn{
       width: 315upx;
-      background: linear-gradient(to right, #0AC7FF 0%, #5AA6FF 100%);
+      .u-size-default {
+        background: linear-gradient(to right, #0AC7FF 0%, #5AA6FF 100%);
+      }
+
       &.contact{
         color: #10A7FE!important;
-        background: #CFEFFF;
+        .u-size-default {
+          background: #CFEFFF;
+        }
       }
     }
   }

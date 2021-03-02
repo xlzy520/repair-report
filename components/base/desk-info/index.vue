@@ -57,7 +57,9 @@ export default {
   },
 
   methods: {
-
+    formatUrl(url) {
+      return getFormatImgUrl(url)
+    },
   },
 }
 </script>
