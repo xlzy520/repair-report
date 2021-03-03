@@ -18,15 +18,15 @@
         </view>
       </u-upload>
     </u-form-item>
-    <u-form-item label="上传音频" prop="audioList" class="form-item-desc row-no-reverse">
-      <template slot="right">最多上传3段音频</template>
-      <u-upload :action="action" upload-type="file" :custom-btn="true" :limitType="audioLimitType"
-                max-count="3" :show-progress="false">
-        <view class="layout-cc upload-btn-img" slot="addBtn">
-          <u-image src="/static/icon/audio.png" width="57" height="46" ></u-image>
-        </view>
-      </u-upload>
-    </u-form-item>
+<!--    <u-form-item label="上传音频" prop="audioList" class="form-item-desc row-no-reverse">-->
+<!--      <template slot="right">最多上传3段音频</template>-->
+<!--      <u-upload :action="action" upload-type="file" :custom-btn="true" :limitType="audioLimitType"-->
+<!--                max-count="3" :show-progress="false">-->
+<!--        <view class="layout-cc upload-btn-img" slot="addBtn">-->
+<!--          <u-image src="/static/icon/audio.png" width="57" height="46" ></u-image>-->
+<!--        </view>-->
+<!--      </u-upload>-->
+<!--    </u-form-item>-->
 
     <u-form-item label="备注" prop="description" :border-bottom="false" class="row-no-reverse">
       <u-input type="textarea" border height="200" v-model="form.description"
@@ -59,9 +59,9 @@ export default {
       action: 'http://124.204.48.137:9001/api/common/file/upload',
       form: {
         exhibitionId: '',
-        imgList: ['/casic/homephoto1611586560131.png?Expires=1926946556&OSSAccessKeyId=LTAIcJhIvHfvkTao&Signature=k1iIL1zp6fQKf0GW9E32iXiAMTo%3D'],
-        videoList: ['/casic/homephoto1611588037969.mov?Expires=1926948030&OSSAccessKeyId=LTAIcJhIvHfvkTao&Signature=JjhoNf3zoLuYYa63ZMwQAtmNN8k%3D'],
-        audioList: [],
+        imgList: [],
+        videoList: [],
+        // audioList: [],
         description: '',
       },
       fileList: [],

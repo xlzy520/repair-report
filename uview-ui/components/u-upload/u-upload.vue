@@ -326,7 +326,7 @@ export default {
             fail: reject,
           })
         } else {
-          wx.chooseMessageFile({
+          uni.chooseFile({
             count: multiple ? (newMaxCount > 9 ? 9 : newMaxCount) : 1,
             sourceType,
             extension: this.limitType,
@@ -361,6 +361,7 @@ export default {
               const file = this.uploadType === 'video' ? val.tempFile : val
               lists.push({
                 url: path,
+                path,
                 progress: 0,
                 error: false,
                 file,
@@ -576,12 +577,13 @@ export default {
       // #endif
       // 非H5，需要从path中读取后缀
       // #ifndef H5
-      fileExt = file.path.replace(reg, '').toLowerCase()
-      // #endif
       // 使用数组的some方法，只要符合limitType中的一个，就返回true
+      console.log(file, 'lzy');
       if (this.uploadType === 'video') {
         return true
       }
+      fileExt = file.path.replace(reg, '').toLowerCase()
+      // #endif
       noArrowExt = this.limitType.some(ext =>
       // 转为小写
 				 ext.toLowerCase() === fileExt)

@@ -73,6 +73,9 @@ export default {
   onShow() {
     this.getUserInfoFromLocal()
     this.getList()
+    if (!this.userInfo.userName) {
+      this.findUserInfo()
+    }
   },
   onLoad() {
     this.findUserInfo()
