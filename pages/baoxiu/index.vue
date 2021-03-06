@@ -31,8 +31,10 @@
         </u-form-item>
         <u-form-item label="上传照片" required prop="imgList" class="form-item-desc">
           <template slot="right">最多上传3张图片</template>
-          <u-upload :action="action" :header="header" :file-list="form.imgList" :custom-btn="true"
-                    max-count="3" :show-progress="false">
+          <u-upload :action="action" :header="header" :custom-btn="true"
+                    max-count="3" :show-progress="false"
+                    @on-remove="removeImg"
+                    @on-success="uploadImgSuccess">
             <view class="layout-cc upload-btn-img" slot="addBtn">
               <u-image src="/static/icon/camera.png" width="65" height="54" ></u-image>
             </view>
@@ -41,7 +43,8 @@
         <u-form-item label="上传视频" required prop="videoList" class="form-item-desc">
           <template slot="right">最多上传3个视频</template>
           <u-upload :action="action" :header="header" upload-type="video"
-                    :file-list="form.videoList"
+                    @on-success="uploadVideoSuccess"
+                    @on-remove="removeVideo"
                     :custom-btn="true" max-count="3" :show-progress="false">
             <view class="layout-cc upload-btn-img" slot="addBtn">
               <u-image src="/static/icon/video.png" width="72" height="72" ></u-image>
@@ -77,13 +80,15 @@
 </template>
 
 <script>
-import commonApi from '../../api/common'
-import reapirApi from '../../api/reapir'
-import { getLocation } from '../../utils'
+import commonApi from 'api/common'
+import repairApi from 'api/repair'
+import { getLocation } from 'utils'
+import { uploadMediaMixins } from 'utils/mixins'
 
 export default {
   components: {
   },
+  mixins: [uploadMediaMixins],
   data() {
     return {
       action: 'http://124.204.48.137:9001/api/common/file/upload',
@@ -114,8 +119,9 @@ export default {
             validator: (rule, value, callback) => {
               if (this.form.imgList.length) {
                 callback()
+              } else {
+                callback('请上传至少一张图片')
               }
-              callback('请上传至少一张图片')
             },
             trigger: ['blur', 'change'],
           }
@@ -125,8 +131,9 @@ export default {
             validator: (rule, value, callback) => {
               if (this.form.videoList.length) {
                 callback()
+              } else {
+                callback('请上传至少一个视频')
               }
-              callback('请上传至少一个视频')
             },
             trigger: ['blur', 'change'],
           }
@@ -208,7 +215,7 @@ export default {
       })
     },
     areaSearch() {
-      reapirApi.areaSearch().then(res => {
+      repairApi.areaSearch().then(res => {
         console.log(res)
         this.exhibitionOptions = this.format(res)
       })
@@ -233,7 +240,7 @@ export default {
       this.$refs.uForm.validate(valid => {
         if (valid) {
           this.btnLoading = true
-          reapirApi.add(this.form).then(res => {
+          repairApi.add(this.form).then(res => {
             console.log(res)
             uni.showToast({ title: '提交成功' })
             setTimeout(() => {

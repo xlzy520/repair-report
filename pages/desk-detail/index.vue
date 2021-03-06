@@ -35,12 +35,12 @@
           <!--          <img src="./play.png" class="play-icon" alt="">-->
         </view>
       </view>
-      <view class="info-item-title">展项音频</view>
-      <view class="info-item-content">
-        <view class="layout-cc present" v-for="item in orderDetail.audioList" :key="item">
-          <u-image src="/static/icon/audio.png" width="151" height="151" alt="" />
-        </view>
-      </view>
+<!--      <view class="info-item-title">展项音频</view>-->
+<!--      <view class="info-item-content">-->
+<!--        <view class="layout-cc present" v-for="item in orderDetail.audioList" :key="item">-->
+<!--          <u-image src="/static/icon/audio.png" width="151" height="151" alt="" />-->
+<!--        </view>-->
+<!--      </view>-->
       <view class="remarks info-item-title" >
         维修备注
       </view>
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import reapirApi from '../../api/reapir'
+import repairApi from '../../api/repair'
 import {formatTimeYY, getFormatImgUrl} from "../../utils";
 
 export default {
@@ -75,7 +75,7 @@ export default {
     },
     getDetail() {
       uni.showLoading({ title: '数据加载中...' })
-      reapirApi.getOrderDetail({
+      repairApi.getOrderDetail({
         orderType: this.orderType,
         orderNo: this.orderNo,
       }).then(res => {
@@ -83,7 +83,7 @@ export default {
         const detail = res
         detail.imgList = res.imgUrl?.split(',')
         detail.videoList = res.videoUrl?.split(',')
-        detail.audioList = res.audioUrl?.split(',')
+        // detail.audioList = res.audioUrl?.split(',')
         detail.formatedTime = formatTimeYY(Number(detail.createTime), 'YYYY/MM/DD HH:mm:ss')
         this.orderDetail = detail
       }).finally(() => {
@@ -98,8 +98,8 @@ export default {
   },
   onLoad(options) {
     if (options) {
-      const { id, orderType } = options
-      this.orderNo = id
+      const { orderNo, orderType } = options
+      this.orderNo = orderNo
       this.orderType = orderType
     }
     this.getDetail()

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import reapirApi from '../../api/reapir'
+import repairApi from '../../api/repair'
 import { DeskTypeEnum } from '../../utils/enum'
 
 export default {
@@ -21,14 +21,18 @@ export default {
   },
   methods: {
     itemClick(item) {
-      uni.navigateTo({ url: '/pages/operate/index?orderNo=' + item.orderNo + '&orderType=' + this.deskType })
+      let path = 'desk-detail'
+      if (this.action === 'operate') {
+        path = 'operate'
+      }
+      uni.navigateTo({ url: `/pages/${path}/index?orderNo=${item.orderNo}&orderType=${this.deskType}`})
     },
     getList() {
       uni.showLoading({ title: '数据加载中...' })
       const requestMapping = [
-        reapirApi.getBaoXiuList,
-        reapirApi.getWeiXiuList,
-        reapirApi.getYanShouList
+        repairApi.getBaoXiuList,
+        repairApi.getWeiXiuList,
+        repairApi.getYanShouList
       ]
       requestMapping[this.deskType]().then(res => {
         this.deskList = res
@@ -53,12 +57,12 @@ export default {
   },
   onLoad(options) {
     if (options) {
-      const { deskType, from } = options
+      const { deskType, action } = options
       uni.setNavigationBarTitle({
         title: DeskTypeEnum[deskType],
       })
       this.deskType = Number(deskType)
-      this.from = from
+      this.action = action
     }
   },
 }

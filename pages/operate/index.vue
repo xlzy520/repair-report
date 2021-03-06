@@ -13,7 +13,7 @@
 import DeskInfo from 'components/base/desk-info'
 import DeskTitle from 'components/base/desk-title'
 import mediaForm from 'components/base/mediaForm'
-import reapirApi from '../../api/reapir'
+import repairApi from '../../api/repair'
 import {formatTimeYY, getFormatImgUrl} from "../../utils";
 
 export default {
@@ -67,7 +67,7 @@ export default {
     },
     getDetail() {
       uni.showLoading({ title: '数据加载中...' })
-      reapirApi.getOrderDetail({
+      repairApi.getOrderDetail({
         orderType: this.orderType,
         orderNo: this.orderNo,
       }).then(res => {
@@ -87,11 +87,11 @@ export default {
     },
     submit(formData) {
       uni.showLoading({ title: '数据提交中...' })
-      const service = this.orderType > 1 ? reapirApi.acceptance : reapirApi.maintenance
+      const service = this.orderType > 1 ? repairApi.acceptance : repairApi.maintenance
       service({ ...formData, repairLogId: this.id }).then(res => {
         console.log(res)
         uni.showToast({ title: '提交成功'})
-        uni.navigateTo({ url: `/pages/desk/index?form=detail&orderType=${this.orderType}` })
+        uni.navigateTo({ url: `/pages/desk/index?action=detail&deskType=${this.orderType}` })
       }).finally(() => {
         uni.hideLoading()
       })

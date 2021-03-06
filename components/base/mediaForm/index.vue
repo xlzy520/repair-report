@@ -2,8 +2,10 @@
   <u-form :model="form" ref="uForm" label-position="top" class="lzy-form media-form">
     <u-form-item label="上传照片" required prop="imgList" class="form-item-desc">
       <template slot="right">最多上传3张图片</template>
-      <u-upload :action="action" :header="header" :file-list="form.imgList" :custom-btn="true"
-                max-count="3" :show-progress="false">
+      <u-upload :action="action" :header="header" :custom-btn="true"
+                max-count="3" :show-progress="false"
+                @on-remove="removeImg"
+                @on-success="uploadImgSuccess">
         <view class="layout-cc upload-btn-img" slot="addBtn">
           <u-image src="/static/icon/camera.png" width="65" height="54" ></u-image>
         </view>
@@ -11,7 +13,9 @@
     </u-form-item>
     <u-form-item label="上传视频" required prop="videoList" class="form-item-desc">
       <template slot="right">最多上传3个视频</template>
-      <u-upload :action="action" :header="header" upload-type="video" :file-list="form.videoList"
+      <u-upload :action="action" :header="header" upload-type="video"
+                @on-success="uploadVideoSuccess"
+                @on-remove="removeVideo"
                 :custom-btn="true" max-count="3" :show-progress="false">
         <view class="layout-cc upload-btn-img" slot="addBtn">
           <u-image src="/static/icon/video.png" width="72" height="72" ></u-image>
@@ -53,7 +57,10 @@
 
 <script>
 
+import { uploadMediaMixins } from 'utils/mixins'
+
 export default {
+  mixins: [uploadMediaMixins],
   data() {
     return {
       action: 'http://124.204.48.137:9001/api/common/file/upload',
@@ -76,8 +83,9 @@ export default {
             validator: (rule, value, callback) => {
               if (this.form.imgList.length) {
                 callback()
+              } else {
+                callback('请上传至少一张图片')
               }
-              callback('请上传至少一张图片')
             },
             trigger: ['blur', 'change'],
           }
@@ -87,8 +95,9 @@ export default {
             validator: (rule, value, callback) => {
               if (this.form.videoList.length) {
                 callback()
+              } else {
+                callback('请上传至少一个视频')
               }
-              callback('请上传至少一个视频')
             },
             trigger: ['blur', 'change'],
           }
@@ -106,6 +115,9 @@ export default {
       default: () => ({}),
     },
   },
+  mounted() {
+    this.$refs.uForm.setRules(this.rules)
+  },
   methods: {
     submit(status) {
       this.$refs.uForm.validate(valid => {
@@ -119,7 +131,12 @@ export default {
       })
     },
     contact() {
-      uni.makePhoneCall({ phoneNumber: this.orderDetail.phone })
+      const phone = this.orderDetail.phone
+      if (!phone) {
+        uni.showToast({ title: '运营商数据为空', icon: 'none'})
+        return
+      }
+      uni.makePhoneCall({ phoneNumber: phone })
     },
     reject() {
       this.$emit('submit', {

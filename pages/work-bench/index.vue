@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import reapirApi from 'api/reapir'
+import repairApi from 'api/repair'
 import commonApi from 'api/common'
 import { getFormatImgUrl } from '../../utils'
 import userApi from "../../api/user";
@@ -104,7 +104,7 @@ export default {
     itemClick(item) {
       console.log(item)
       const type = this.current + 1
-      uni.navigateTo({ url: '/pages/desk-detail/index?id=' + item.orderNo + '&orderType=' + type })
+      uni.navigateTo({ url: '/pages/desk-detail/index?orderNo=' + item.orderNo + '&orderType=' + type })
     },
     entryClick(item) {
       if (item.url === 'scan') {
@@ -118,7 +118,7 @@ export default {
               if (res) {
                 if (res.exhibitionName) {
                   uni.navigateTo({
-                    url: `/pages/baoxiu/index?from=work-bench&qr=${res.result}`,
+                    url: `/pages/baoxiu/index?action=operate&qr=${res.result}`,
                   })
                 }
               }
@@ -130,14 +130,14 @@ export default {
         return
       }
       uni.navigateTo({
-        url: `/pages/${item.url}/index?from=work-bench&deskType=${item.deskType}`,
+        url: `/pages/${item.url}/index?action=operate&deskType=${item.deskType}`,
       })
       console.log(item)
     },
     getList() {
       uni.showLoading({ title: '数据加载中...' })
-      const requestMapping = [reapirApi.getBaoXiuList, reapirApi.getWeiXiuList,
-        reapirApi.getYanShouList]
+      const requestMapping = [repairApi.getBaoXiuList, repairApi.getWeiXiuList,
+        repairApi.getYanShouList]
       requestMapping[this.current]().then(res => {
         this.deskList = res
         console.log(res)

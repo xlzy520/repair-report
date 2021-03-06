@@ -14,7 +14,8 @@
         <uni-list-item title="展项视频">
           <template slot="footer">
             <view class="layout-cc present" v-for="item in orderDetail.videoList" :key="item">
-              <video :controls="false" :show-center-play-btn="false" :src="formatUrl(item)" class="w-h-151" width="151" height="151" alt="" />
+              <video :controls="false" :show-center-play-btn="false"
+                     :src="formatUrl(item)" class="w-h-151" width="151" height="151" alt="" />
             </view>
           </template>
         </uni-list-item>
@@ -28,9 +29,8 @@
 
 <script>
 
-import reapirApi from 'api/reapir'
 import DeskTitle from 'components/base/desk-title'
-import { formatTimeYY, getFormatImgUrl } from '../../../utils'
+import { getFormatImgUrl } from '../../../utils'
 
 export default {
   components: {
@@ -48,11 +48,12 @@ export default {
   },
   computed: {
     title() {
-      return this.orderType > 1 ? '维修工单' : '验收工单'
+      return this.titleMapping[this.orderType]+'工单'
     },
   },
   data() {
     return {
+      titleMapping: ['报修', '维修', '验收'],
     }
   },
 

@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import reapirApi from '../../api/reapir'
+import repairApi from '../../api/repair'
 
 export default {
   data() {
@@ -34,7 +34,7 @@ export default {
   methods: {
     submit() {
       this.btnLoading = true
-      reapirApi.dailyAdd({
+      repairApi.dailyAdd({
         content: this.content,
       }).then(res => {
         this.$showToast('提交日报成功')

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import reapirApi from '../../api/reapir'
+  import repairApi from '../../api/repair'
   import { DeskTypeEnum } from '../../utils/enum'
   import { getList } from '../../utils/mixins'
   import {formatTimeYY} from "../../utils";
@@ -36,7 +36,7 @@
       },
       getList(isRefresh) {
         uni.showLoading({ title: '数据加载中...' })
-        reapirApi.getDaily(this.pageOption,).then(res => {
+        repairApi.getDaily(this.pageOption,).then(res => {
           const { list, pages = 0, pageNum } = res
           this.totalPages = pages
           this.pageNum = pageNum

@@ -571,6 +571,10 @@ export default {
       // 获取后缀名
       let fileExt = ''
       const reg = /.+\./
+
+      if (this.uploadType === 'video') {
+        return true
+      }
       // 如果是H5，需要从name中判断
       // #ifdef H5
       fileExt = file.name.replace(reg, '').toLowerCase()
@@ -579,9 +583,6 @@ export default {
       // #ifndef H5
       // 使用数组的some方法，只要符合limitType中的一个，就返回true
       console.log(file, 'lzy');
-      if (this.uploadType === 'video') {
-        return true
-      }
       fileExt = file.path.replace(reg, '').toLowerCase()
       // #endif
       noArrowExt = this.limitType.some(ext =>
