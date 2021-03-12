@@ -13,11 +13,11 @@
         <u-form :model="loginParams" :rules="rules" ref="uForm" class="" :border-bottom="false">
           <u-form-item prop="account" left-icon="/static/icon/login/account.png"
                        :left-icon-style="leftIconStyle">
-            <u-input v-model="loginParams.account" clearable
-                     left-icon="/static/login/account.png" placeholder="请输入手机号"></u-input>
-            <!--              <u-input v-model="loginParams.account" type="number" clearable-->
-            <!--                       left-icon="/static/login/account.png" placeholder="请输入手机号"-->
-            <!--                       maxlength="11"></u-input>-->
+<!--            <u-input v-model="loginParams.account" clearable-->
+<!--                     left-icon="/static/login/account.png" placeholder="请输入手机号"></u-input>-->
+                          <u-input v-model="loginParams.account" type="number" clearable
+                                   left-icon="/static/login/account.png" placeholder="请输入手机号"
+                                   maxlength="11"></u-input>
           </u-form-item>
           <u-form-item prop="password" left-icon="/static/icon/login/pwd.png"
                        :left-icon-style="leftIconStyle">
@@ -45,9 +45,9 @@ export default {
   data() {
     return {
       loginParams: {
-        account: 'oB6Ug5ebkvSB8gi1OhZrLvRIe1ZI',
-        accountType: '7',
-        password: 'oB6Ug5ebkvSB8gi1OhZrLvRIe1ZI',
+        account: '',
+        accountType: '6',
+        password: '',
       },
       pwdType: 'password',
       loading: false,

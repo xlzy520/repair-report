@@ -26,6 +26,7 @@
 
 <script>
 import commonApi from 'api/common'
+import userApi from 'api/user'
 import { TaskDeskStatisticsEnum } from '../../utils/enum'
 import { getFormatImgUrl } from '../../utils'
 
@@ -74,8 +75,10 @@ export default {
   },
   methods: {
     logout() {
-      uni.clearStorageSync()
-      uni.navigateTo({url: '/pages/login/index'})
+      userApi.logout().then(res => {
+        uni.clearStorageSync()
+        uni.navigateTo({ url: '/pages/login/index' })
+      })
     },
     getUserInfoFromLocal() {
       const userInfoStr = uni.getStorageSync('userInfo')
