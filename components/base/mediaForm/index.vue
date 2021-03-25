@@ -78,30 +78,30 @@ export default {
       btnLoading: false,
       audioLimitType: ['mp3', 'wma', 'avi'],
       rules: {
-        imgList: [
-          {
-            validator: (rule, value, callback) => {
-              if (this.form.imgList.length) {
-                callback()
-              } else {
-                callback('请上传至少一张图片')
-              }
-            },
-            trigger: ['blur', 'change'],
-          }
-        ],
-        videoList: [
-          {
-            validator: (rule, value, callback) => {
-              if (this.form.videoList.length) {
-                callback()
-              } else {
-                callback('请上传至少一个视频')
-              }
-            },
-            trigger: ['blur', 'change'],
-          }
-        ],
+        // imgList: [
+        //   {
+        //     validator: (rule, value, callback) => {
+        //       if (this.form.imgList.length) {
+        //         callback()
+        //       } else {
+        //         callback('请上传至少一张图片')
+        //       }
+        //     },
+        //     trigger: ['blur', 'change'],
+        //   }
+        // ],
+        // videoList: [
+        //   {
+        //     validator: (rule, value, callback) => {
+        //       if (this.form.videoList.length) {
+        //         callback()
+        //       } else {
+        //         callback('请上传至少一个视频')
+        //       }
+        //     },
+        //     trigger: ['blur', 'change'],
+        //   }
+        // ],
       },
     }
   },
