@@ -1,31 +1,26 @@
-const baseUrl = 'http://124.204.48.137:9001' // 正式环境
-// const baseUrl = ''
+// const proUrl = 'http://172.17.109.220:9001' // 正式环境
+let devUrl = 'http://39.97.230.231:9001/'
+
+const isDev = process.env.NODE_ENV === 'development'
+
+// #ifdef H5
+devUrl = ''
+// #endif
+
+const baseUrl = devUrl
 
 const GET = 'GET'
 const POST = 'POST'
-const PUT = 'PUT'
-const FORM = 'FORM'
-const DELETE = 'DELETE'
 const UPLOAD = 'UPLOAD'
-const SUCCESS_CODES = [200, 4000]
+const SUCCESS_CODES = 200
 const RefreshCode = 506
 const LogoutCode = 503
 
-const getHeader = (method, url) => {
-  const contentType = 'application/json'
-  const userId = uni.getStorageSync('uid')
-  const accessToken = uni.getStorageSync('accessToken') || '' // let headers = {
-  //   'content-type': contentType,
-  //   'userId': userId,
-  //   'accessToken': accessToken
-  // }
-
-  const headers = {
-    'content-type': contentType,
-    userid: uni.getStorageSync('uid') || '',
+const getHeader = () => {
+  const accessToken = uni.getStorageSync('accessToken') || ''
+  return {
     token: accessToken,
   }
-  return headers
 }
 /**
  *
@@ -44,15 +39,17 @@ const request = (url, data, method = POST) => new Promise((resolve, reject) => {
       success(res) {
         // 请求成功
         const data = res.data
-        if (SUCCESS_CODES.indexOf(data.code) !== -1) {
+        if (data.code === SUCCESS_CODES) {
           resolve(data.data)
         } else {
           // 其他异常
-          console.log(data);
+          console.log(data)
           if (data.code === RefreshCode) {
-          
+
           } else if (data.code === LogoutCode) {
-            uni.navigateTo({url: '/pages/login/index'})
+            reject(data)
+            return
+            // uni.navigateTo({ url: '/pages/login/index' })
           } else {
             uni.showToast({ title: data.msg, icon: 'none' })
           }
@@ -62,31 +59,31 @@ const request = (url, data, method = POST) => new Promise((resolve, reject) => {
       },
 
       fail(err) {
+        console.log(err)
         // 请求失败
-        reject('请检查网络')
+        reject(new Error('请检查网络'))
       },
 
     })
   } else {
-    console.log(data);
+    console.log(data, url)
     uni.uploadFile({
-      filePath: data,
+      file: data,
+      filePath: data.path,
       name: 'file',
-      url: `/api${url}`,
-      header: getHeader(method, url),
+      url: `${baseUrl}/api/${url}`,
+      header: getHeader(method, url, true),
       success: resObj => {
         const res = JSON.parse(resObj.data)
-
-        if (SUCCESS_CODES.indexOf(res.data.code) !== -1) {
+        if (res.code === SUCCESS_CODES) {
           resolve(res.data)
         } else {
           // 其他异常
           reject(res.msg)
         }
       },
-      fail: () => {
-        // 请求失败
-        reject('图片上传失败')
+      fail: (err) => {
+        reject(new Error('上传失败:' + JSON.stringify(err)))
       },
     })
   }
