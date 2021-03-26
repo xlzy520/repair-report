@@ -1,5 +1,7 @@
+import setting from '../setting'
+
 // const proUrl = 'http://172.17.109.220:9001' // 正式环境
-let devUrl = 'http://39.97.230.231:9001/'
+let devUrl = setting.baseUrl
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -45,7 +47,7 @@ const request = (url, data, method = POST) => new Promise((resolve, reject) => {
           // 其他异常
           console.log(data)
           if (data.code === RefreshCode) {
-
+          
           } else if (data.code === LogoutCode) {
             reject(data)
             return
@@ -57,13 +59,13 @@ const request = (url, data, method = POST) => new Promise((resolve, reject) => {
           reject(data)
         }
       },
-
+      
       fail(err) {
         console.log(err)
         // 请求失败
         reject(new Error('请检查网络'))
       },
-
+      
     })
   } else {
     console.log(data, url)

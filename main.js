@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import uView from 'uview-ui'
 import dayjs from 'dayjs'
+import setting from './setting'
 // import formRules from './utils/formRules'
 import './style/index.scss'
 import './components'
@@ -23,6 +24,7 @@ Vue.config.productionTip = false
 Vue.prototype.$dayjs = dayjs
 // Vue.prototype.$rules = formRules
 Vue.prototype.$imgBaseUrl = 'https://youngj.oss-cn-huhehaote.aliyuncs.com/'
+Vue.prototype.$uploadUrl = setting.baseUrl + 'api/common/file/upload'
 Vue.prototype.$showToast = (title, icon = 'none', otherOptions) => {
   uni.showToast({ title, icon, ...otherOptions })
 }

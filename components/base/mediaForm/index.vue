@@ -63,7 +63,7 @@ export default {
   mixins: [uploadMediaMixins],
   data() {
     return {
-      action: 'http://124.204.48.137:9001/api/common/file/upload',
+      action: this.$uploadUrl,
       form: {
         exhibitionId: '',
         imgList: [],
