@@ -63,6 +63,7 @@
 
         <u-form-item label="备注" prop="description" :border-bottom="false" class="row-no-reverse">
           <u-input type="textarea" border height="200" v-model="form.description"
+                   maxlength="100"
                    placeholder="请输入您的备注信息……" />
         </u-form-item>
 
@@ -152,6 +153,7 @@ export default {
         token: uni.getStorageSync('accessToken'),
       },
       qr: '',
+      loading: false,
     }
   },
   computed: {
@@ -203,6 +205,7 @@ export default {
       this.cellTitles.exhibition = data[0].label
     },
     getExhibition() {
+      this.loading = true
       getLocation().then(res => {
         const { longitude, latitude } = res
         commonApi.near({
@@ -211,6 +214,8 @@ export default {
         }).then(res => {
           this.exhibitionOptions = this.format(res)
           console.log(res)
+        }).finally(() => {
+          this.loading = false
         })
       })
     },
@@ -237,6 +242,9 @@ export default {
       })
     },
     submit() {
+      if (this.loading) {
+        return
+      }
       this.$refs.uForm.validate(valid => {
         if (valid) {
           this.btnLoading = true

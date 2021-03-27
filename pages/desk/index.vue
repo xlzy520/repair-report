@@ -4,19 +4,22 @@
     <view class="list-content">
       <desk-list :list=deskList :deskType="deskType" @itemClick="itemClick" />
     </view>
+    <u-empty v-if="!deskList.length" text="暂无数据" />
 	</view>
 </template>
 
 <script>
 import repairApi from '../../api/repair'
 import { DeskTypeEnum } from '../../utils/enum'
+import UEmpty from '../../uview-ui/components/u-empty/u-empty'
 
 export default {
+  components: { UEmpty },
   data() {
     return {
       deskList: [],
       deskType: '',
-      form: ''
+      form: '',
     }
   },
   methods: {
@@ -25,7 +28,7 @@ export default {
       if (this.action === 'operate') {
         path = 'operate'
       }
-      uni.navigateTo({ url: `/pages/${path}/index?orderNo=${item.orderNo}&orderType=${this.deskType}`})
+      uni.navigateTo({ url: `/pages/${path}/index?orderNo=${item.orderNo}&orderType=${this.deskType}` })
     },
     getList() {
       uni.showLoading({ title: '数据加载中...' })
