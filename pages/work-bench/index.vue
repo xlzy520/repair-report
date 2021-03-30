@@ -34,7 +34,7 @@
 import repairApi from 'api/repair'
 import commonApi from 'api/common'
 import { getFormatImgUrl } from '../../utils'
-import userApi from "../../api/user";
+import userApi from '../../api/user'
 
 export default {
   data() {
@@ -92,9 +92,10 @@ export default {
     },
     getUserInfoFromLocal() {
       const userInfoStr = uni.getStorageSync('userInfo')
-      console.log(userInfoStr);
       if (userInfoStr) {
         this.userInfo = JSON.parse(userInfoStr)
+      } else {
+        this.findUserInfo()
       }
     },
     tabChange(index) {
