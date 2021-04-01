@@ -29,7 +29,7 @@
                          @click="exhibitionShow = true"/>
           </u-cell-group>
         </u-form-item>
-        <u-form-item label="上传照片" required prop="imgList" class="form-item-desc">
+        <u-form-item label="上传照片" prop="imgList" class="row-no-reverse form-item-desc">
           <template slot="right">最多上传3张图片</template>
           <u-upload :action="action" :header="header" :custom-btn="true"
                     max-count="3" :show-progress="false"
@@ -40,7 +40,7 @@
             </view>
           </u-upload>
         </u-form-item>
-        <u-form-item label="上传视频" required prop="videoList" class="form-item-desc">
+        <u-form-item label="上传视频" prop="videoList" class="row-no-reverse form-item-desc">
           <template slot="right">最多上传3个视频</template>
           <u-upload :action="action" :header="header" upload-type="video"
                     @on-success="uploadVideoSuccess"
