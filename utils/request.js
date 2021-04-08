@@ -50,8 +50,8 @@ const request = (url, data, method = POST) => new Promise((resolve, reject) => {
           
           } else if (data.code === LogoutCode) {
             reject(data)
-            return
-            // uni.navigateTo({ url: '/pages/login/index' })
+            // return
+            uni.navigateTo({ url: '/pages/login/index' })
           } else {
             uni.showToast({ title: data.msg, icon: 'none' })
           }
