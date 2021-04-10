@@ -12,7 +12,7 @@
           </view>
         </u-form-item>
         <u-form-item v-if="checkMethodIsImg" label="请选择图片" required>
-          <u-upload action="/api/repair/exhibition/image/search" :header="header"
+          <u-upload :action="imgCheckAction" :header="header"
                     name="image" :file-list="fileList" :custom-btn="true"
                     max-count="1" :show-progress="false" @on-success="uploadCheckImgSuccess">
             <view class="layout-cc upload-btn-img" slot="addBtn">
@@ -93,6 +93,7 @@ export default {
   data() {
     return {
       action: this.$uploadUrl,
+      imgCheckAction: this.$baseUrl + '/api/repair/exhibition/image/search',
       form: {
         exhibitionId: '',
         imgList: [],
@@ -186,9 +187,9 @@ export default {
         value: v.id,
       }))
     },
-    uploadCheckImgSuccess(data) {
-      if (data) {
-        this.exhibitionOptions = this.format(data)
+    uploadCheckImgSuccess(res) {
+      if (res.data) {
+        this.exhibitionOptions = this.format(res.data)
       }
     },
     getMethodImg(item) {
@@ -201,8 +202,12 @@ export default {
       item.method()
     },
     changeExhibition(data) {
-      this.form.exhibitionId = data[0].value
-      this.cellTitles.exhibition = data[0].label
+      if (data[0].label) {
+        this.form.exhibitionId = data[0].value
+        this.cellTitles.exhibition = data[0].label
+      }else {
+        uni.showToast({ title: '暂无展项数据', icon: 'none' })
+      }
     },
     getExhibition() {
       this.loading = true

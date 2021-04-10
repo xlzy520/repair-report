@@ -28,7 +28,8 @@ export default {
       if (this.action === 'operate') {
         path = 'operate'
       }
-      uni.navigateTo({ url: `/pages/${path}/index?orderNo=${item.orderNo}&orderType=${this.deskType}` })
+      const orderType = this.deskType + 1
+      uni.navigateTo({ url: `/pages/${path}/index?orderNo=${item.orderNo}&orderType=${1}` })
     },
     getList() {
       uni.showLoading({ title: '数据加载中...' })

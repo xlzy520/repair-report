@@ -101,6 +101,7 @@ module.exports = {
     wx: true,
     worker: true,
     getApp: true,
+    getCurrentPages: true,
     uni: true,
   },
 }

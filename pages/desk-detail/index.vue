@@ -10,7 +10,7 @@
             展品位置：
           </view>
           <view class="f32 c9 lh-50">
-            {{orderDetail.floor}}{{orderDetail.areaName}}
+            {{formatAddress()}}
           </view>
         </view>
         <view class="layout-slide position">
@@ -18,7 +18,7 @@
             派单时间：
           </view>
           <view class="f32 c9 lh-50">
-            {{orderDetail.formatedTime}}
+            {{orderDetail.formatTime}}
           </view>
         </view>
       </view>
@@ -70,6 +70,13 @@ export default {
     }
   },
   methods: {
+    formatAddress() {
+      const { floor, areaName } = this.orderDetail
+      if (floor && areaName) {
+        return floor + areaName
+      }
+      return ''
+    },
     formatUrl(url){
       return getFormatImgUrl(url)
     },
@@ -84,7 +91,7 @@ export default {
         detail.imgList = res.imgUrl?.split(',')
         detail.videoList = res.videoUrl?.split(',')
         // detail.audioList = res.audioUrl?.split(',')
-        detail.formatedTime = formatTimeYY(Number(detail.createTime), 'YYYY/MM/DD HH:mm:ss')
+        detail.formatTime = formatTimeYY(Number(detail.createTime), 'YYYY/MM/DD HH:mm:ss')
         this.orderDetail = detail
       }).finally(() => {
         uni.hideLoading()

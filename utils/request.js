@@ -46,12 +46,13 @@ const request = (url, data, method = POST) => new Promise((resolve, reject) => {
         } else {
           // 其他异常
           console.log(data)
-          if (data.code === RefreshCode) {
-          
-          } else if (data.code === LogoutCode) {
+          if (data.code === LogoutCode) {
             reject(data)
-            // return
-            uni.navigateTo({ url: '/pages/login/index' })
+            const routes = getCurrentPages() // 获取当前打开过的页面路由数组
+            const curRoute = routes[routes.length - 1].route // 获取当前页面路由
+            if (curRoute !== 'pages/login/index') {
+              uni.navigateTo({ url: '/pages/login/index' })
+            }
           } else {
             uni.showToast({ title: data.msg, icon: 'none' })
           }
@@ -59,13 +60,13 @@ const request = (url, data, method = POST) => new Promise((resolve, reject) => {
           reject(data)
         }
       },
-      
+
       fail(err) {
         console.log(err)
         // 请求失败
         reject(new Error('请检查网络'))
       },
-      
+
     })
   } else {
     console.log(data, url)

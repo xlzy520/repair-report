@@ -15,7 +15,7 @@
           </view>
         </view>
         <view class="layout-slide base-subtitle f30 address-row">
-          <view class="">位置: {{item.floor}}{{item.areaName}}</view>
+          <view class="">位置: {{formatAddress(item)}}</view>
           <view class="ellipsis order-no">单号: {{item.orderNo}}</view>
         </view>
         <view class="base-subtitle f28 layout-slide time-row" v-if="deskType">
@@ -62,6 +62,13 @@ export default {
     },
   },
   methods: {
+    formatAddress(item) {
+      const { floor, areaName } = item
+      if (floor && areaName) {
+        return floor + areaName
+      }
+      return ''
+    },
     handleItemClick(item) {
       this.$emit('itemClick', item)
     },

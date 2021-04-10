@@ -66,6 +66,8 @@ export default {
   },
   mounted() {
     this.getUserInfoFromLocal()
+  },
+  onShow() {
     this.getDetail()
   },
   computed: {

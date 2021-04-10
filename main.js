@@ -23,6 +23,7 @@ Vue.component('desk-list', deskList)
 Vue.config.productionTip = false
 Vue.prototype.$dayjs = dayjs
 // Vue.prototype.$rules = formRules
+Vue.prototype.$baseUrl = setting.baseUrl
 Vue.prototype.$imgBaseUrl = 'https://youngj.oss-cn-huhehaote.aliyuncs.com/'
 Vue.prototype.$uploadUrl = setting.baseUrl + 'api/common/file/upload'
 Vue.prototype.$showToast = (title, icon = 'none', otherOptions) => {
