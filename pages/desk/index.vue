@@ -25,11 +25,12 @@ export default {
   methods: {
     itemClick(item) {
       let path = 'desk-detail'
+      let orderType = 1
       if (this.action === 'operate') {
         path = 'operate'
+        orderType = this.deskType
       }
-      const orderType = this.deskType + 1
-      uni.navigateTo({ url: `/pages/${path}/index?orderNo=${item.orderNo}&orderType=${1}` })
+      uni.navigateTo({ url: `/pages/${path}/index?orderNo=${item.orderNo}&orderType=${orderType}` })
     },
     getList() {
       uni.showLoading({ title: '数据加载中...' })

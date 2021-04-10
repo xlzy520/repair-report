@@ -20,7 +20,7 @@
           </template>
         </uni-list-item>
 
-        <uni-list-item class="desk-desc" title="维修备注" :right-text="orderDetail.description"/>
+        <uni-list-item class="desk-desc" title="备注" :right-text="orderDetail.description"/>
       </uni-list>
 
     </view>
@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     title() {
-      return this.titleMapping[this.orderType]+'工单'
+      return this.titleMapping[this.orderType - 1] + '工单'
     },
   },
   data() {
