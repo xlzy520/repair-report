@@ -45,7 +45,7 @@
         维修备注
       </view>
       <view class="info-item-content f32 c3 lh-45 u-m-t-28">
-        {{orderDetail.description}}
+        {{orderDetail.description || ''}}
       </view>
       <view class="footer">
 <!--        <u-button class="confirm-btn" :disabled="btnLoading" :loading="btnLoading" @click="submit">-->
